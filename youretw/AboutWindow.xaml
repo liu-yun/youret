@@ -1,0 +1,19 @@
+﻿<Window x:Name="AboutWindow1" x:Class="AboutWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    Title="About" Height="329" Width="256" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" ShowInTaskbar="False" Icon="youret.ico">
+    <Window.TaskbarItemInfo>
+        <TaskbarItemInfo/>
+    </Window.TaskbarItemInfo>
+    <Grid Margin="0,-24,-6,0">
+        <Image Height="211" Margin="24,26,32,0" VerticalAlignment="Top" Source="youret.png"/>
+
+        <Button Content="OK" Height="28" Margin="86,284,87,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+        <Label Content="YourET" Height="24" Margin="99,209,86,0" VerticalAlignment="Top"/>
+        <Label Content="1.2.2" Height="25" Margin="105,227,102,0" VerticalAlignment="Top"/>
+        <Label Content="Copyright © 2013 Liu Yun" Height="30" Margin="43,246,32,0" VerticalAlignment="Top"/>
+        <Image HorizontalAlignment="Left" Height="51" VerticalAlignment="Top" Width="65" Source="incognito_guy.png" Margin="0,26,0,0"/>
+        <Image HorizontalAlignment="Left" Height="51" VerticalAlignment="Top" Width="44" Source="button_incognito.png" Margin="198,33,0,0"/>
+
+    </Grid>
+</Window>
