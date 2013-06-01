@@ -8,9 +8,22 @@
     <Grid Margin="0,-24,-6,0">
         <Image Height="211" Margin="24,26,32,0" VerticalAlignment="Top" Source="youret.png"/>
 
-        <Button Content="OK" Height="28" Margin="86,284,87,0" VerticalAlignment="Top" Click="Button_Click_1"/>
+        <Button Content="OK" Height="28" Margin="99,284,102,0" VerticalAlignment="Top" Click="Button_Click_1">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#BFFFF2F2" Offset="0.013"/>
+                    <GradientStop Color="#BF52E8C6" Offset="0.467"/>
+                    <GradientStop Color="#BF4CDCBB" Offset="0.602"/>
+                    <GradientStop Color="#BFF7F16D" Offset="0.171"/>
+                    <GradientStop Color="#BF7EF963" Offset="0.342"/>
+                    <GradientStop Color="#996B92F9" Offset="0.783"/>
+                    <GradientStop Color="#BFF160F7" Offset="1"/>
+                    <GradientStop Color="#BF718FF8" Offset="0.793"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
         <Label Content="YourET" Height="24" Margin="99,209,86,0" VerticalAlignment="Top"/>
-        <Label Content="1.2.2" Height="25" Margin="105,227,102,0" VerticalAlignment="Top"/>
+        <Label Content="1.2.3" Height="25" Margin="105,227,102,0" VerticalAlignment="Top"/>
         <Label Content="Copyright © 2013 Liu Yun" Height="30" Margin="43,246,32,0" VerticalAlignment="Top"/>
         <Image HorizontalAlignment="Left" Height="51" VerticalAlignment="Top" Width="65" Source="incognito_guy.png" Margin="0,26,0,0"/>
         <Image HorizontalAlignment="Left" Height="51" VerticalAlignment="Top" Width="44" Source="button_incognito.png" Margin="198,33,0,0"/>
