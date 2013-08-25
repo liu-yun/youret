@@ -12,9 +12,8 @@ Public Class WebBrowser
     Public lesson As String
     WithEvents Timer As New DispatcherTimer()
     Protected Overrides Sub OnSourceInitialized(ByVal e As System.EventArgs)
-        ' InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "LLang", "EN; path=/")
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "TargetServerKey", "CN1-LLabs; path=/")
-        InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "APVersion", "5509; path=/")
+        InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "APVersion", "5510; path=/")
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "LastSessionID", aspsession + "; path=/")
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "ASP.NET_SessionId", aspsession + "; path=/")
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "ContentProvider", "; path=/")
@@ -40,7 +39,6 @@ Public Class WebBrowser
             End If
         Catch ex As Exception
         End Try
-
     End Sub
 End Class
 

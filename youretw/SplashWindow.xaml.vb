@@ -1,10 +1,10 @@
-﻿Public Class SplashWindow
-
+﻿
+Public Class SplashWindow
     Dim count As Single = 0
 
     Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
         count = count + 1
-        If count > 4 Then
+        If count > 2 Then
             Dim mainwindow1 As New MainWindow
             mainwindow1.Show()
             Me.Close()
@@ -17,4 +17,6 @@
     Private Sub Button_Click_2(sender As Object, e As RoutedEventArgs)
         Me.Close()
     End Sub
+
 End Class
+
