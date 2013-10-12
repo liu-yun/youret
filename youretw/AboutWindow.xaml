@@ -23,7 +23,7 @@
             </Button.Background>
         </Button>
         <Label Content="YourET" Height="29" Margin="96,128,0,0" VerticalAlignment="Top" FontSize="17" HorizontalAlignment="Left" Width="80"/>
-        <Label Content="Version 1.3.0" Height="25" Margin="88,178,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="98"/>
+        <Label Content="Version 1.3.1" Height="25" Margin="88,178,0,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="98"/>
         <Label Content="Copyright © 2013 Liu Yun. All rights reserved." Height="26" Margin="7,206,-8,0" VerticalAlignment="Top" HorizontalAlignment="Left" Width="265" FontSize="11"/>
         <Label Content="A MyET agent built for simplicity" HorizontalAlignment="Left" Height="26" Margin="43,151,0,0" VerticalAlignment="Top" Width="201" FontSize="11"/>
 

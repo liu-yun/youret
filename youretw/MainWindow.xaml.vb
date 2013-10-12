@@ -73,7 +73,6 @@ Class MainWindow
     Dim data As String
     Public cookiesend As String
 
-
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
         scoreo0 = TextBox4.Text
         scoreo1 = TextBox5.Text
