@@ -30,7 +30,7 @@
 
 
         </Button>
-        <Button x:Name="Buttonse" Content="Select" Height="22" Margin="3,43,0,0" VerticalAlignment="Top" Click="Buttonse_Click_1" Grid.Row="1" HorizontalAlignment="Left" Width="49">
+        <Button x:Name="Buttonse" Content="Select" Height="22" Margin="3,43,0,0" VerticalAlignment="Top" Grid.Row="1" HorizontalAlignment="Left" Width="49">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#99F3F3F3" Offset="0"/>
@@ -92,7 +92,7 @@
         <Label Content="Timing" HorizontalAlignment="Left" Height="27" Margin="2,154,0,0" VerticalAlignment="Top" Width="56" FontSize="11" Grid.Row="1"/>
         <Label Content="Intensity" HorizontalAlignment="Left" Height="27" Margin="2,181,0,0" VerticalAlignment="Top" Width="56" FontSize="11" Grid.Row="1"/>
         <Grid x:Name="GridLogin" HorizontalAlignment="Left" Height="39" VerticalAlignment="Top" Width="242" Grid.RowSpan="2">
-            <ComboBox x:Name="combobox1" Width="106" VerticalAlignment="Top" Margin="56,3,0,0" ItemsSource="{Binding}" HorizontalAlignment="Left" DisplayMemberPath="Username" RenderTransformOrigin="0.5,0.5">
+            <ComboBox x:Name="combobox1" Width="106" VerticalAlignment="Top" Margin="57,3,0,0" ItemsSource="{Binding}" HorizontalAlignment="Left" DisplayMemberPath="Username" RenderTransformOrigin="0.5,0.5">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#FFF3F3F3" Offset="0"/>

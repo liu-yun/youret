@@ -49,11 +49,6 @@ Class MainWindow
     End Sub
 
     Dim lesson As String
-    Dim scoreo0 As String
-    Dim scoreo1 As String
-    Dim scoreo2 As String
-    Dim scoreo3 As String
-    Dim scoreo4 As String
     Dim score0 As String
     Dim score1 As String
     Dim score2 As String
@@ -74,23 +69,13 @@ Class MainWindow
     Public cookiesend As String
 
     Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        scoreo0 = TextBox4.Text
-        scoreo1 = TextBox5.Text
-        scoreo2 = TextBox6.Text
-        scoreo3 = TextBox7.Text
-        scoreo4 = TextBox8.Text
-        scoreo0 = (Val(scoreo1) + Val(scoreo2) + Val(scoreo3) + Val(scoreo4)) / 4
-        score1 = Val(scoreo1) + Format(Rnd(), ".00")
-        score2 = Val(scoreo2) + Format(Rnd(), ".00")
-        score3 = Val(scoreo3) + Format(Rnd(), ".00")
-        score4 = Val(scoreo4) + Format(Rnd(), ".00")
-        score0 = Format((Val(score1) + Val(score2) + Val(score3) + Val(score4)) / 4, ".00")
-        TextBox4.Text = scoreo0
-        TextBox9.Text = score0
-        TextBox10.Text = score1
-        TextBox11.Text = score2
-        TextBox12.Text = score3
-        TextBox13.Text = score4
+        TextBox4.Text = (Val(TextBox5.Text) + Val(TextBox6.Text) + Val(TextBox7.Text) + Val(TextBox8.Text)) / 4
+        TextBox10.Text = Val(TextBox5.Text) + Format(Rnd(), ".00")
+        TextBox11.Text = Val(TextBox6.Text) + Format(Rnd(), ".00")
+        TextBox12.Text = Val(TextBox7.Text) + Format(Rnd(), ".00")
+        TextBox13.Text = Val(TextBox8.Text) + Format(Rnd(), ".00")
+        TextBox9.Text = Format((Val(TextBox10.Text) + Val(TextBox11.Text) + Val(TextBox12.Text) + Val(TextBox13.Text)) / 4, ".00")
+        TextBox15.Text = Int(400 + 200 * Rnd())
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
@@ -237,29 +222,20 @@ Class MainWindow
         WebBrowser1.aspsession = aspsession
         WebBrowser1.ecpacid = ecpacid
         WebBrowser1.ShowDialog()
-        TextBox3.Text = WebBrowser1.lesson
+        If WebBrowser1.lesson = "" Then
+        Else
+            TextBox3.Text = WebBrowser1.lesson
+        End If
     End Sub
 
     Private Sub Button02_Click(sender As Object, e As RoutedEventArgs) Handles Button02.Click
-        scoreo0 = TextBox4.Text
-        scoreo1 = TextBox5.Text
-        scoreo2 = TextBox6.Text
-        scoreo3 = TextBox7.Text
-        scoreo4 = TextBox8.Text
-        scoreo0 = (Val(scoreo1) + Val(scoreo2) + Val(scoreo3) + Val(scoreo4)) / 4
-
-        score1 = Val(scoreo1) + Format(3 * Rnd(), ".00")
-        score2 = Val(scoreo2) + Format(3 * Rnd(), ".00")
-        score3 = Val(scoreo3) + Format(3 * Rnd(), ".00")
-        score4 = Val(scoreo4) + Format(3 * Rnd(), ".00")
-        score0 = Format((Val(score1) + Val(score2) + Val(score3) + Val(score4)) / 4, ".00")
-
-        TextBox4.Text = scoreo0
-        TextBox9.Text = score0
-        TextBox10.Text = score1
-        TextBox11.Text = score2
-        TextBox12.Text = score3
-        TextBox13.Text = score4
+        TextBox4.Text = (Val(TextBox5.Text) + Val(TextBox6.Text) + Val(TextBox7.Text) + Val(TextBox8.Text)) / 4
+        TextBox10.Text = Val(TextBox5.Text) + Format(3 * Rnd(), ".00")
+        TextBox11.Text = Val(TextBox6.Text) + Format(3 * Rnd(), ".00")
+        TextBox12.Text = Val(TextBox7.Text) + Format(3 * Rnd(), ".00")
+        TextBox13.Text = Val(TextBox8.Text) + Format(3 * Rnd(), ".00")
+        TextBox9.Text = Format((Val(TextBox10.Text) + Val(TextBox11.Text) + Val(TextBox12.Text) + Val(TextBox13.Text)) / 4, ".00")
+        TextBox15.Text = Int(400 + 200 * Rnd())
     End Sub
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)

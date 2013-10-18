@@ -1,9 +1,14 @@
-﻿Option Explicit On
+﻿Imports System.Data.SqlClient
 Imports System.Windows.Interop
-Public Class AboutWindow
+
+Public Class AddUser
     Protected Overrides Sub OnSourceInitialized(ByVal e As System.EventArgs)
         MyBase.OnSourceInitialized(e)
         ExtendGlass()
+    End Sub
+    Protected Overrides Sub OnMouseLeftButtonDown(e As MouseButtonEventArgs)
+        MyBase.OnMouseLeftButtonDown(e)
+        Me.DragMove()
     End Sub
     Private Declare Sub DwmIsCompositionEnabled Lib "dwmapi.dll" (ByRef b As Boolean)
     Private Declare Sub DwmExtendFrameIntoClientArea Lib "dwmapi.dll" (ByVal hWnd As IntPtr, ByRef pMarInset As Margins)
@@ -14,12 +19,10 @@ Public Class AboutWindow
             Top = CInt(t.Top)
             Bottom = CInt(t.Bottom)
         End Sub
-
         Public Left As Integer
         Public Right As Integer
         Public Top As Integer
         Public Bottom As Integer
-
     End Structure
     Private Sub ExtendGlass()
         Try
@@ -30,24 +33,29 @@ Public Class AboutWindow
                 If hWnd <> IntPtr.Zero Then
                     Me.Background = Brushes.Transparent
                     HwndSource.FromHwnd(hWnd).CompositionTarget.BackgroundColor = Colors.Transparent
-
                     Dim m As New Margins(New Thickness(-1))
                     DwmExtendFrameIntoClientArea(hWnd, m)
                 End If
             End If
         Catch
-            ' ignore - if you get an error here, it's likely you aren't running on 
-            ' an os that has areo.
-
         End Try
     End Sub
-    Private mouse_offset As Point
-    Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
-        Me.Close()
-    End Sub
 
-    Protected Overrides Sub OnMouseLeftButtonDown(e As MouseButtonEventArgs)
-        MyBase.OnMouseLeftButtonDown(e)
-        Me.DragMove()
+    Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
+        Dim id As String = t1.Text
+        Dim username As String = t2.Text
+        Dim password As String = t3.Text
+        Dim conn As SqlConnection = New SqlConnection("Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Passwords.mdf;Integrated Security=True")
+        Dim sql As String = "INSERT INTO [Table] ([Id], [Username], [Password]) VALUES ('" + id + "', '" + username + "', '" + password + "' )"
+        Dim cmd As New SqlCommand(sql, conn)
+        conn.Open()
+        Try
+            Dim res As String = cmd.ExecuteNonQuery
+            conn.Close()
+            conn.Dispose()
+        Catch ex As Exception
+            MsgBox("Error")
+        End Try
+        Me.Close()
     End Sub
 End Class
