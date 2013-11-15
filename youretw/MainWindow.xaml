@@ -231,8 +231,9 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-            <Label x:Name="pro2" Content="%" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="51" HorizontalContentAlignment="Center"/>
-            <ProgressBar x:Name="progressbar1" HorizontalAlignment="Left" Height="22" Margin="0,22,0,0" VerticalAlignment="Top" Width="52"/>
+            <ProgressBar x:Name="progressbar1" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="52" Margin="0,-1,0,0"/>
+            <Label x:Name="pro2" Content="%" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="51" HorizontalContentAlignment="Center" Margin="0,9,0,0"/>
+            
         </Grid>
     </Grid>
 </Window>

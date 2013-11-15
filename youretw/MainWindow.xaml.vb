@@ -95,13 +95,15 @@ Class MainWindow
                 Me.Cursor = System.Windows.Input.Cursors.AppStarting
                 MsgBox("Success", MsgBoxStyle.Information, "YourET")
             Else
-                gridbatchctrl.Visibility = Windows.Visibility.Visible
-                Button1.Visibility = Windows.Visibility.Hidden
-                buttonsingle.Visibility = Windows.Visibility.Hidden
-                ButtonL2.IsEnabled = False
                 bw.WorkerSupportsCancellation = True
                 bw.WorkerReportsProgress = True
                 If bw.IsBusy = False Then
+                    gridbatchctrl.Visibility = Windows.Visibility.Visible
+                    Button1.Visibility = Windows.Visibility.Hidden
+                    buttonsingle.Visibility = Windows.Visibility.Hidden
+                    ButtonL2.IsEnabled = False
+                    combobox2.IsEnabled = False
+                    combobox3.IsEnabled = False
                     num = Val(combobox2.Text)
                     timewait = Val(combobox3.Text) * 60000
                     bw.RunWorkerAsync()
@@ -121,6 +123,7 @@ Class MainWindow
     Private Sub ButtonL4_Click(sender As Object, e As RoutedEventArgs) Handles ButtonL4.Click
         Me.Cursor = System.Windows.Input.Cursors.Wait
         ButtonL4.IsEnabled = False
+        combobox1.IsEnabled = False
         username = combobox1.Text.Replace(" ", "")
         If bw2.IsBusy = False Then
             bw2.RunWorkerAsync()
@@ -142,6 +145,7 @@ Class MainWindow
             GridLogin.Visibility = Windows.Visibility.Hidden
             GridUser.Visibility = Windows.Visibility.Visible
             ButtonL4.IsEnabled = True
+            combobox1.IsEnabled = True
         Else
             GridUser.Visibility = Windows.Visibility.Hidden
             GridLogin.Visibility = Windows.Visibility.Visible
@@ -395,6 +399,8 @@ Class MainWindow
         Button1.Visibility = Windows.Visibility.Visible
         buttonsingle.Visibility = Windows.Visibility.Visible
         ButtonL2.IsEnabled = True
+        combobox2.IsEnabled = True
+        combobox3.IsEnabled = True
     End Sub
 
     Private Sub Buttonstop_Click(sender As Object, e As RoutedEventArgs) Handles buttonstop.Click
@@ -403,6 +409,8 @@ Class MainWindow
         Button1.Visibility = Windows.Visibility.Visible
         buttonsingle.Visibility = Windows.Visibility.Visible
         ButtonL2.IsEnabled = True
+        combobox2.IsEnabled = True
+        combobox3.IsEnabled = True
     End Sub
 
     Private Sub buttonbatch_Click(sender As Object, e As RoutedEventArgs) Handles buttonbatch.Click
