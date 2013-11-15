@@ -1,10 +1,8 @@
 ﻿<Window
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      
-    xmlns:local="clr-namespace:youret" x:Class="MainWindow"
-      
-    Title="YourET" Height="336.194" Width="255" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="youret.ico">
+    xmlns:local="clr-namespace:youret" xmlns:System="clr-namespace:System;assembly=mscorlib" x:Class="MainWindow"
+    Title="YourET" Height="330.194" Width="255" ResizeMode="CanMinimize" WindowStartupLocation="CenterScreen" Icon="youret.ico" Closing="MainWindow_Closing">
     <Window.Resources>
         <local:PasswordsDataSet x:Key="PasswordsDataSet"/>
         <CollectionViewSource x:Key="TableViewSource" Source="{Binding Table, Source={StaticResource PasswordsDataSet}}"/>
@@ -16,9 +14,8 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="116*"/>
-
         </Grid.ColumnDefinitions>
-        <Button x:Name="Button1" Content="Go" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="58" Margin="166,241,0,0" Grid.Row="1">
+        <Button x:Name="Button1" Content="Go" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="52" Margin="176,239,0,0" Grid.Row="1">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#BFF3F3F3" Offset="0"/>
@@ -27,8 +24,6 @@
                     <GradientStop Color="#AF00FF00" Offset="1"/>
                 </LinearGradientBrush>
             </Button.Background>
-
-
         </Button>
         <Button x:Name="Buttonse" Content="Select" Height="22" Margin="3,43,0,0" VerticalAlignment="Top" Grid.Row="1" HorizontalAlignment="Left" Width="49">
             <Button.Background>
@@ -40,7 +35,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="Button3" Content="About" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="58" Margin="21,241,0,0" Grid.Row="1">
+        <Button x:Name="Button3" Content="About" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="52" Margin="3,239,0,0" Grid.Row="1">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#BFF3F3F3" Offset="0"/>
@@ -50,7 +45,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <CheckBox x:Name="CheckBox1" Content="Test Mode" HorizontalAlignment="Left" Height="21" Margin="145,213,0,0" VerticalAlignment="Top" Width="94" RenderTransformOrigin="0.758,0.623" Background="#56F4F4F4" IsChecked="True" Grid.Row="1"/>
+        <CheckBox x:Name="CheckBox1" Content="Test Mode" HorizontalAlignment="Left" Height="17" Margin="145,208,0,0" VerticalAlignment="Top" Width="83" RenderTransformOrigin="0.758,0.623" Background="#56F4F4F4" IsChecked="True" Grid.Row="1" FontSize="11"></CheckBox>
         <Label Content="Time" HorizontalAlignment="Left" Margin="2,208,0,0" VerticalAlignment="Top" Width="45" RenderTransformOrigin="0.422,0.192" Grid.Row="1" Height="26"/>
         <TextBox x:Name="TextBox15" HorizontalAlignment="Left" Margin="58,208,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Background="#7FFFFFFF" MaxLines="1" MaxLength="3" Grid.Row="1" Height="22"/>
         <TextBox x:Name="TextBox3" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="119" Background="#7FFFFFFF" Margin="57,44,0,0" MaxLines="1" FontSize="11" Grid.Row="1" Height="21" />
@@ -85,7 +80,7 @@
                     <GradientStop Color="#AFCDFF00" Offset="1"/>
                 </LinearGradientBrush>
             </Button.Background>
-            <TextBlock TextAlignment="Center" FontSize="11"><Run Text="Random"/><LineBreak/><Run Text="3x"/></TextBlock>
+            <TextBlock TextAlignment="Center" FontSize="11"><Run Text="Random"/><LineBreak/><Run Text="+"/></TextBlock>
         </Button>
         <Label Content="Pronun." HorizontalAlignment="Left" Height="22" Margin="2,100,0,0" VerticalAlignment="Top" Width="56" FontSize="11" Grid.Row="1"/>
         <Label Content="Pitch" HorizontalAlignment="Left" Height="27" Margin="2,127,0,0" VerticalAlignment="Top" Width="56" FontSize="11" Grid.Row="1"/>
@@ -101,9 +96,8 @@
                         <GradientStop Color="#FFCDCDCD" Offset="1"/>
                     </LinearGradientBrush>
                 </ComboBox.Background>
-
             </ComboBox>
-            <Button x:Name="ButtonL4" Content="Login" HorizontalAlignment="Left" Height="24" Margin="169,3,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.538,3.57" >
+            <Button x:Name="ButtonL4" Content="Login" HorizontalAlignment="Left" Height="22" Margin="169,2,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.538,3.57" >
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#4C51F76B" Offset="1"/>
@@ -117,7 +111,7 @@
             </Button>
         </Grid>
         <Grid x:Name="GridUser" HorizontalAlignment="Left" Height="39" Margin="2,0,0,0" VerticalAlignment="Top" Width="240" Grid.RowSpan="2" >
-            <Button x:Name="ButtonL2" Content="Logout" HorizontalAlignment="Left" Height="25" Margin="167,2,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.5,0.5" >
+            <Button x:Name="ButtonL2" Content="Logout" HorizontalAlignment="Left" Height="22" Margin="167,2,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.5,0.5" >
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -148,7 +142,7 @@
                 </Label.RenderTransform>
             </Label>
         </Grid>
-        <Button Content="+1" HorizontalAlignment="Left" Height="22" Margin="180,43,0,0" VerticalAlignment="Top" Width="21" Grid.Row="1" Click="Button_Click_1">
+        <Button x:Name="buttonp" Content="+1" HorizontalAlignment="Left" Height="22" Margin="180,43,0,0" VerticalAlignment="Top" Width="21" Grid.Row="1" Click="Button_Click_1">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -158,7 +152,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button Content="-1" HorizontalAlignment="Left" Height="22" Margin="204,43,0,0" VerticalAlignment="Top" Width="21" Grid.Row="1" Click="Button_Click_2">
+        <Button x:Name="buttonm" Content="-1" HorizontalAlignment="Left" Height="22" Margin="204,43,0,0" VerticalAlignment="Top" Width="21" Grid.Row="1" Click="Button_Click_2">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#FFF3F3F3" Offset="0"/>
@@ -168,17 +162,77 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button Content="Manage" HorizontalAlignment="Left" Margin="94,241,0,0" VerticalAlignment="Top" Width="58" Click="Button_Click" Height="45" Grid.Row="1">
+        <Button Content="Manage" HorizontalAlignment="Left" Margin="60,239,0,0" VerticalAlignment="Top" Width="52" Click="Button_Click" Height="45" Grid.Row="1">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                     <GradientStop Color="#BFF3F3F3" Offset="0"/>
                     <GradientStop Color="#4CC065FF" Offset="0.5"/>
                     <GradientStop Color="#4CCE88FF" Offset="0.507"/>
-                    <GradientStop Color="#AF9428FF" Offset="1"/>
+                    <GradientStop Color="#8C9428FF" Offset="1"/>
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
         <Label Content="User" HorizontalAlignment="Left" Margin="2,2,0,0" Width="50" Grid.RowSpan="2" Height="26" VerticalAlignment="Top"/>
-
+        <ComboBox x:Name="combobox2" HorizontalAlignment="Left" Margin="180,44,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="44" IsEditable="True" SelectedIndex="0" Height="21">
+            <ListBoxItem Content="1"/>
+            <ListBoxItem Content="2"/>
+            <ListBoxItem Content="3"/>
+            <ListBoxItem Content="4"/>
+            <ListBoxItem Content="5"/>
+            <ListBoxItem Content="6"/>
+            <ListBoxItem Content="7"/>
+        </ComboBox>
+        <Button x:Name="buttonbatch" Content="Batch" HorizontalAlignment="Left" Height="45" Margin="118,239,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="52">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#BFFFFFFF" Offset="0"/>
+                    <GradientStop Color="#BF03F994" Offset="1"/>
+                    <GradientStop Color="#4C79FBC6" Offset="0.513"/>
+                    <GradientStop Color="#9964FABD" Offset="0.51"/>
+                    <GradientStop Color="#9967FABE" Offset="0.517"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <Button x:Name="buttonsingle" Content="Single" HorizontalAlignment="Left" Height="45" Margin="118,239,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="52">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#BFFFFFFF" Offset="0"/>
+                    <GradientStop Color="#BF03F994" Offset="1"/>
+                    <GradientStop Color="#4C79FBC6" Offset="0.513"/>
+                    <GradientStop Color="#9964FABD" Offset="0.51"/>
+                    <GradientStop Color="#9967FABE" Offset="0.517"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+        <ComboBox x:Name="combobox3" HorizontalAlignment="Left" Height="21" Margin="112,72,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="48" IsEditable="True" SelectedIndex="1" RenderTransformOrigin="0.5,0.5">
+            <ComboBox.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.316"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </ComboBox.RenderTransform>
+            <ListBoxItem Content="0"/>
+            <ListBoxItem Content="1"/>
+            <ListBoxItem Content="2"/>
+            <ListBoxItem Content="3"/>
+            <ListBoxItem Content="5"/>
+            <ListBoxItem Content="7"/>
+        </ComboBox>
+        <Grid x:Name="gridbatchctrl" HorizontalAlignment="Left" Height="44" Margin="118,0,0,19" Grid.RowSpan="2" VerticalAlignment="Bottom" Width="110">
+            <Button x:Name="buttonstop" Content="Stop" HorizontalAlignment="Left" Height="45" Margin="58,-1,-1,0" VerticalAlignment="Top" Width="52">
+                <Button.Background>
+                    <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                        <GradientStop Color="#99F3F3F3" Offset="0"/>
+                        <GradientStop Color="#3AFF0000" Offset="0.5"/>
+                        <GradientStop Color="#4CDD0000" Offset="0.513"/>
+                        <GradientStop Color="#8CFA2130" Offset="0.997"/>
+                    </LinearGradientBrush>
+                </Button.Background>
+            </Button>
+            <Label x:Name="pro2" Content="%" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="51" HorizontalContentAlignment="Center"/>
+            <ProgressBar x:Name="progressbar1" HorizontalAlignment="Left" Height="22" Margin="0,22,0,0" VerticalAlignment="Top" Width="52"/>
+        </Grid>
     </Grid>
 </Window>
