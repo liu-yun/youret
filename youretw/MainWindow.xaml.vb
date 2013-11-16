@@ -14,6 +14,7 @@ Class MainWindow
         buttonp.Visibility = Windows.Visibility.Hidden
         buttonm.Visibility = Windows.Visibility.Hidden
         combobox1.IsEnabled = False
+        ButtonL4.IsEnabled = False
         bwa.RunWorkerAsync()
     End Sub
     Protected Overrides Sub OnMouseLeftButtonDown(e As MouseButtonEventArgs)
@@ -440,7 +441,7 @@ Class MainWindow
     Protected Overrides Sub OnMouseRightButtonDown(e As MouseButtonEventArgs)
         MyBase.OnMouseRightButtonUp(e)
         notify.Text = "YourET"
-        notify.Icon = New System.Drawing.Icon("../../youret.ico")
+        notify.Icon = My.Resources.yourettray
         notify.Visible = True
         Me.Hide()
     End Sub
@@ -463,6 +464,7 @@ Class MainWindow
         Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
         TableViewSource.View.MoveCurrentToFirst()
         combobox1.IsEnabled = True
+        ButtonL4.IsEnabled = True
         labelloading.Visibility = Windows.Visibility.Hidden
     End Sub
 End Class

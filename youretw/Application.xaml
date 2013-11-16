@@ -9,6 +9,7 @@ ShutdownMode="OnLastWindowClose">
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/PresentationFramework.Aero,Version=4.0.0.0,Culture=neutral,PublicKeyToken=31bf3856ad364e35;component/themes/Aero.NormalColor.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            <BitmapImage x:Key="youreticon" CreateOptions="IgnoreImageCache" CacheOption="OnLoad" UriSource="D:\刘云\Projects\youretw\youretw\youret.ico"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
