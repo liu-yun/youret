@@ -13,11 +13,8 @@ Class MainWindow
         gridbatchctrl.Visibility = Windows.Visibility.Hidden
         buttonp.Visibility = Windows.Visibility.Hidden
         buttonm.Visibility = Windows.Visibility.Hidden
-        Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
-        Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
-        PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
-        Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
-        TableViewSource.View.MoveCurrentToFirst()
+        combobox1.IsEnabled = False
+        bwa.RunWorkerAsync()
     End Sub
     Protected Overrides Sub OnMouseLeftButtonDown(e As MouseButtonEventArgs)
         MyBase.OnMouseLeftButtonDown(e)
@@ -76,6 +73,7 @@ Class MainWindow
     Dim isbatch As String = 1
     WithEvents bw As New BackgroundWorker()
     WithEvents bw2 As New BackgroundWorker()
+    WithEvents bwa As New BackgroundWorker()
     Dim progress As Double = 0
     Dim timewait As Integer
     Dim num As Integer
@@ -450,6 +448,22 @@ Class MainWindow
     Private Sub Notify_MouseClick(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles notify.Click
         Me.Show()
         notify.Visible = False
+    End Sub
+
+    Private Sub Bwa_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bwa.DoWork
+        Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
+        Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
+        PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
+    End Sub
+
+    Private Sub Bwa_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwa.RunWorkerCompleted
+        Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
+        Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
+        PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
+        Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
+        TableViewSource.View.MoveCurrentToFirst()
+        combobox1.IsEnabled = True
+        labelloading.Visibility = Windows.Visibility.Hidden
     End Sub
 End Class
 

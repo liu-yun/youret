@@ -45,7 +45,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <CheckBox x:Name="CheckBox1" Content="Test Mode" HorizontalAlignment="Left" Height="17" Margin="145,208,0,0" VerticalAlignment="Top" Width="83" RenderTransformOrigin="0.758,0.623" Background="#56F4F4F4" IsChecked="True" Grid.Row="1" FontSize="11"></CheckBox>
+        <CheckBox x:Name="CheckBox1" Content="Test Mode" HorizontalAlignment="Left" Height="17" Margin="145,212,0,0" VerticalAlignment="Top" Width="83" RenderTransformOrigin="0.758,0.623" Background="#56F4F4F4" IsChecked="True" Grid.Row="1" FontSize="11"></CheckBox>
         <Label Content="Time" HorizontalAlignment="Left" Margin="2,208,0,0" VerticalAlignment="Top" Width="45" RenderTransformOrigin="0.422,0.192" Grid.Row="1" Height="26"/>
         <TextBox x:Name="TextBox15" HorizontalAlignment="Left" Margin="58,208,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Background="#7FFFFFFF" MaxLines="1" MaxLength="3" Grid.Row="1" Height="22"/>
         <TextBox x:Name="TextBox3" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Top" Width="119" Background="#7FFFFFFF" Margin="57,44,0,0" MaxLines="1" FontSize="11" Grid.Row="1" Height="21" />
@@ -87,17 +87,17 @@
         <Label Content="Timing" HorizontalAlignment="Left" Height="27" Margin="2,154,0,0" VerticalAlignment="Top" Width="56" FontSize="11" Grid.Row="1"/>
         <Label Content="Intensity" HorizontalAlignment="Left" Height="27" Margin="2,181,0,0" VerticalAlignment="Top" Width="56" FontSize="11" Grid.Row="1"/>
         <Grid x:Name="GridLogin" HorizontalAlignment="Left" Height="39" VerticalAlignment="Top" Width="242" Grid.RowSpan="2">
-            <ComboBox x:Name="combobox1" Width="106" VerticalAlignment="Top" Margin="57,3,0,0" ItemsSource="{Binding}" HorizontalAlignment="Left" DisplayMemberPath="Username" RenderTransformOrigin="0.5,0.5">
+            <ComboBox x:Name="combobox1" Width="106" VerticalAlignment="Top" Margin="57,3,0,0" ItemsSource="{Binding}" HorizontalAlignment="Left" DisplayMemberPath="Username" RenderTransformOrigin="0.5,0.5" BorderBrush="#CCACACAC">
                 <ComboBox.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                        <GradientStop Color="#FFF3F3F3" Offset="0"/>
+                        <GradientStop Color="#7FF3F3F3" Offset="0"/>
                         <GradientStop Color="#00EBEBEB" Offset="1"/>
                         <GradientStop Color="#FFDDDDDD" Offset="1"/>
-                        <GradientStop Color="#FFCDCDCD" Offset="1"/>
+                        <GradientStop Color="#7FCDCDCD" Offset="1"/>
                     </LinearGradientBrush>
                 </ComboBox.Background>
             </ComboBox>
-            <Button x:Name="ButtonL4" Content="Login" HorizontalAlignment="Left" Height="22" Margin="169,2,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.538,3.57" >
+            <Button x:Name="ButtonL4" Content="Login" HorizontalAlignment="Left" Height="21" Margin="169,3,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.538,3.57" >
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="#4C51F76B" Offset="1"/>
@@ -111,7 +111,7 @@
             </Button>
         </Grid>
         <Grid x:Name="GridUser" HorizontalAlignment="Left" Height="39" Margin="2,0,0,0" VerticalAlignment="Top" Width="240" Grid.RowSpan="2" >
-            <Button x:Name="ButtonL2" Content="Logout" HorizontalAlignment="Left" Height="22" Margin="167,2,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.5,0.5" >
+            <Button x:Name="ButtonL2" Content="Logout" HorizontalAlignment="Left" Height="21" Margin="167,3,0,0" VerticalAlignment="Top" Width="55" RenderTransformOrigin="0.5,0.5" >
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -131,7 +131,7 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-            <Label x:Name="namet" Content="#name#" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="108" RenderTransformOrigin="0.5,0.5" Margin="54,1,0,0">
+            <Label x:Name="namet" Content="#name#" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="98" RenderTransformOrigin="0.5,0.5" Margin="54,1,0,0">
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -173,7 +173,7 @@
             </Button.Background>
         </Button>
         <Label Content="User" HorizontalAlignment="Left" Margin="2,2,0,0" Width="50" Grid.RowSpan="2" Height="26" VerticalAlignment="Top"/>
-        <ComboBox x:Name="combobox2" HorizontalAlignment="Left" Margin="180,44,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="44" IsEditable="True" SelectedIndex="0" Height="21">
+        <ComboBox x:Name="combobox2" HorizontalAlignment="Left" Margin="180,44,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="44" IsEditable="True" SelectedIndex="0" Height="21"  BorderBrush="#CCACACAC" Background="#7FFFFFFF">
             <ListBoxItem Content="1"/>
             <ListBoxItem Content="2"/>
             <ListBoxItem Content="3"/>
@@ -204,15 +204,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <ComboBox x:Name="combobox3" HorizontalAlignment="Left" Height="21" Margin="112,72,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="48" IsEditable="True" SelectedIndex="1" RenderTransformOrigin="0.5,0.5">
-            <ComboBox.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-0.316"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </ComboBox.RenderTransform>
+        <ComboBox x:Name="combobox3" HorizontalAlignment="Left" Height="21" Margin="112,72,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="48" IsEditable="True" SelectedIndex="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#CCACACAC" Background="#7FFFFFFF">
             <ListBoxItem Content="0"/>
             <ListBoxItem Content="1"/>
             <ListBoxItem Content="2"/>
@@ -231,9 +223,10 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-            <ProgressBar x:Name="progressbar1" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="52" Margin="0,-1,0,0"/>
+            <ProgressBar x:Name="progressbar1" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="52" Margin="0,-1,0,0" Background="#D8E6E6E6" BorderBrush="#CC616060"/>
             <Label x:Name="pro2" Content="%" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="51" HorizontalContentAlignment="Center" Margin="0,9,0,0"/>
-            
+
         </Grid>
+        <Label x:Name="labelloading" Content="Loading..." HorizontalAlignment="Left" Height="25" Margin="57,1,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="68"/>
     </Grid>
 </Window>
