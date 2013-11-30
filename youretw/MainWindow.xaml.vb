@@ -149,6 +149,8 @@ Class MainWindow
             GridUser.Visibility = Windows.Visibility.Hidden
             GridLogin.Visibility = Windows.Visibility.Visible
             ButtonL2.IsEnabled = True
+            ButtonL4.IsEnabled = True
+            combobox1.IsEnabled = True
         End If
         Me.Cursor = System.Windows.Input.Cursors.AppStarting
     End Sub
@@ -181,11 +183,15 @@ Class MainWindow
         Dim pwdmgr As New PasswordMgr
         pwdmgr.Owner = Me
         pwdmgr.ShowDialog()
-        Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
-        Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
-        PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
-        Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
-        TableViewSource.View.MoveCurrentToFirst()
+        Try
+            Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
+            Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
+            PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
+            Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
+            TableViewSource.View.MoveCurrentToFirst()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
@@ -266,7 +272,7 @@ Class MainWindow
             conn.Close()
             conn.Dispose()
         Catch ex As Exception
-            MsgBox("Error")
+            MsgBox(ex.Message)
         End Try
 
         data = "__VIEWSTATE=&hdnCultureName=zh-CN&hdnSysAdminBulletinStatus=None&ReturnUrl=LoginPost.aspx&hdnPassword=&hdnWarningMsg=&hdnAutoLogin=N&hdnIsFirstLogin=Y&hdnLoginVerifyUrl=&hdnClientIP=&UserName=" + username + "&Password=" + password + "&btnLogin=%E7%99%BB%E5%BD%95"
@@ -393,7 +399,9 @@ Class MainWindow
     End Sub
 
     Private Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
-        MsgBox("Finished")
+        If Me.IsVisible = True Then
+            MsgBox("Finished")
+        End If
         gridbatchctrl.Visibility = Windows.Visibility.Hidden
         Button1.Visibility = Windows.Visibility.Visible
         buttonsingle.Visibility = Windows.Visibility.Visible
@@ -452,17 +460,25 @@ Class MainWindow
     End Sub
 
     Private Sub Bwa_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bwa.DoWork
-        Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
-        Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
-        PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
+        Try
+            Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
+            Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
+            PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub Bwa_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwa.RunWorkerCompleted
-        Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
-        Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
-        PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
-        Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
-        TableViewSource.View.MoveCurrentToFirst()
+        Try
+            Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
+            Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
+            PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
+            Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
+            TableViewSource.View.MoveCurrentToFirst()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
         combobox1.IsEnabled = True
         ButtonL4.IsEnabled = True
         labelloading.Visibility = Windows.Visibility.Hidden

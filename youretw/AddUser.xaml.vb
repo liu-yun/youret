@@ -54,7 +54,7 @@ Public Class AddUser
             conn.Close()
             conn.Dispose()
         Catch ex As Exception
-            MsgBox("Error")
+            MsgBox(ex.Message)
         End Try
         Me.Close()
     End Sub

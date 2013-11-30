@@ -45,21 +45,30 @@ Public Class PasswordMgr
     End Sub
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs) Handles MyBase.Loaded
-        Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
-        Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
-        PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
-        Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
-        TableViewSource.View.MoveCurrentToFirst()
+        Try
+            Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
+            Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
+            PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
+            Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
+            TableViewSource.View.MoveCurrentToFirst()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub addbt_Click(sender As Object, e As RoutedEventArgs) Handles addbt.Click
         Dim add As New AddUser
+        add.Owner = Me
         add.ShowDialog()
-        Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
-        Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
-        PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
-        Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
-        TableViewSource.View.MoveCurrentToFirst()
+        Try
+            Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
+            Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
+            PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
+            Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
+            TableViewSource.View.MoveCurrentToFirst()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 
     Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
@@ -77,12 +86,16 @@ Public Class PasswordMgr
             conn.Close()
             conn.Dispose()
         Catch ex As Exception
-            MsgBox("Error")
+            MsgBox(ex.Message)
         End Try
-        Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
-        Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
-        PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
-        Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
-        TableViewSource.View.MoveCurrentToFirst()
+        Try
+            Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
+            Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
+            PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
+            Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
+            TableViewSource.View.MoveCurrentToFirst()
+        Catch ex As Exception
+            MsgBox(ex.Message)
+        End Try
     End Sub
 End Class
