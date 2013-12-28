@@ -45,7 +45,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <CheckBox x:Name="CheckBox1" Content="Test Mode" HorizontalAlignment="Left" Height="17" Margin="145,207,0,0" VerticalAlignment="Top" Width="83" RenderTransformOrigin="0.758,0.623" Background="#56F4F4F4" IsChecked="True" Grid.Row="1" FontSize="11"></CheckBox>
+        <CheckBox x:Name="CheckBox1" Content="Test" HorizontalAlignment="Left" Height="17" Margin="178,207,0,0" VerticalAlignment="Top" Width="51" RenderTransformOrigin="0.758,0.623" Background="#56F4F4F4" IsChecked="True" Grid.Row="1" FontSize="11"></CheckBox>
         <Label Content="Time" HorizontalAlignment="Left" Margin="2,203,0,0" VerticalAlignment="Top" Width="45" RenderTransformOrigin="0.422,0.192" Grid.Row="1" Height="26"/>
         <TextBox x:Name="TextBox15" HorizontalAlignment="Left" Margin="58,203,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="36" Background="#7FFFFFFF" MaxLines="1" MaxLength="3" Grid.Row="1" Height="22"/>
         <TextBox x:Name="TextBox3" HorizontalAlignment="Left"  TextWrapping="NoWrap" VerticalAlignment="Top" Width="119" Background="#7FFFFFFF" Margin="57,39,0,0" MaxLines="1" FontSize="11" Grid.Row="1" Height="21" />
@@ -61,7 +61,7 @@
         <TextBox x:Name="TextBox11" HorizontalAlignment="Left" Margin="179,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="46" Background="#7FFFFFFF" MaxLines="1" MaxLength="3" IsReadOnly="True" Grid.Row="1" Height="22"/>
         <TextBox x:Name="TextBox12" HorizontalAlignment="Left" Margin="179,149,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="46" Background="#7FFFFFFF" MaxLines="1" MaxLength="3" IsReadOnly="True" Grid.Row="1" Height="22"/>
         <TextBox x:Name="TextBox13" HorizontalAlignment="Left" Margin="179,176,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="46" Background="#7FFFFFFF" MaxLines="1" MaxLength="3" IsReadOnly="True" Grid.Row="1" Height="22"/>
-        <Button x:Name="Button2" Content="Random" HorizontalAlignment="Left" Height="41" Margin="105,95,0,0" VerticalAlignment="Top" Width="60" Grid.Row="1">
+        <Button x:Name="Button2" Content="Random" HorizontalAlignment="Left" Height="41" Margin="106,95,0,0" VerticalAlignment="Top" Width="54" Grid.Row="1">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <GradientStop Color="#BFF3F3F3" Offset="0"/>
@@ -71,7 +71,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="Button02" HorizontalAlignment="Left" Height="41" Margin="106,149,0,0" VerticalAlignment="Top" Width="59" Grid.Row="1">
+        <Button x:Name="Button02" HorizontalAlignment="Left" Height="41" Margin="106,141,0,0" VerticalAlignment="Top" Width="54" Grid.Row="1">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <GradientStop Color="#BFF3F3F3" Offset="0"/>
@@ -228,5 +228,16 @@
 
         </Grid>
         <Label x:Name="labelloading" Content="Loading..." HorizontalAlignment="Left" Height="25" Margin="57,0,0,0" VerticalAlignment="Top" Width="68" Grid.Row="1"/>
+        <ProgressBar x:Name="pg" HorizontalAlignment="Left" Height="37" Margin="106,187,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="54"/>
+        <Button x:Name="buttonall" Content="All" HorizontalAlignment="Left" Height="37" Margin="106,187,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="54">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
+                    <GradientStop Color="#BFF3F3F3" Offset="0"/>
+                    <GradientStop Color="#4C00EB00" Offset="0.5"/>
+                    <GradientStop Color="#4C00EB00" Offset="0.497"/>
+                    <GradientStop Color="#AF00FF00" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
     </Grid>
 </Window>

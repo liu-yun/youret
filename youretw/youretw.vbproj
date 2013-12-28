@@ -243,13 +243,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="splash.png" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Resources\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="back.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="youret.ico" />
@@ -268,6 +262,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>Passwords.mdf</DependentUpon>
     </Content>
+    <Resource Include="splash2.png" />
     <None Include="yourettray.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
