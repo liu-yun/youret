@@ -9,13 +9,10 @@ Class MainWindow
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs) Handles MyBase.Loaded
         ExtendGlass()
         GridUser.Visibility = Windows.Visibility.Hidden
-        buttonbatch.Visibility = Windows.Visibility.Hidden
         gridbatchctrl.Visibility = Windows.Visibility.Hidden
-        buttonp.Visibility = Windows.Visibility.Hidden
-        buttonm.Visibility = Windows.Visibility.Hidden
         combobox1.IsEnabled = False
         ButtonL4.IsEnabled = False
-        bwa.RunWorkerAsync()
+        bwload.RunWorkerAsync()
     End Sub
     Protected Overrides Sub OnMouseLeftButtonDown(e As MouseButtonEventArgs)
         MyBase.OnMouseLeftButtonDown(e)
@@ -71,11 +68,11 @@ Class MainWindow
     Dim ecpacid As String
     Dim data As String
     Public cookiesend As String
-    Dim isbatch As String = 1
+    Dim isall As String = 0
     WithEvents bw As New BackgroundWorker()
-    WithEvents bw2 As New BackgroundWorker()
-    WithEvents bwa As New BackgroundWorker()
-    WithEvents bw3 As New BackgroundWorker()
+    WithEvents bwuser As New BackgroundWorker()
+    WithEvents bwload As New BackgroundWorker()
+    WithEvents bwall As New BackgroundWorker()
     Dim progress As Double = 0
     Dim progressa As Double = 0
     Dim timewait As Integer
@@ -91,30 +88,46 @@ Class MainWindow
     End Sub
 
     Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        Dim ok As Integer = MsgBox("Are you sure?", MsgBoxStyle.OkCancel, "Confirm")
-        If ok = 1 Then
-            If isbatch = 0 Then
-                Me.Cursor = System.Windows.Input.Cursors.Wait
-                go()
-                Me.Cursor = System.Windows.Input.Cursors.AppStarting
-                MsgBox("Success", MsgBoxStyle.Information, "YourET")
-            Else
+        If bw.IsBusy = False Then
+            Dim ok As Integer = MsgBox("Are you sure?", MsgBoxStyle.OkCancel, "Confirm")
+            If ok = 1 Then
+                olesson = TextBox3.Text
+                buttonone.Visibility = Windows.Visibility.Hidden
+                Button1.Visibility = Windows.Visibility.Hidden
+                gridbatchctrl.Visibility = Windows.Visibility.Visible
+                If isall = 0 Then
+                    progressbar2.Visibility = Windows.Visibility.Hidden
+                    prouser.Visibility = Windows.Visibility.Hidden
+                    pro3.Visibility = Windows.Visibility.Hidden
+                Else
+                    GridLogin.Visibility = Windows.Visibility.Hidden
+                    GridUser.Visibility = Windows.Visibility.Visible
+                    ButtonL2.Visibility = Windows.Visibility.Hidden
+                    progressbar2.Visibility = Windows.Visibility.Visible
+                    prouser.Visibility = Windows.Visibility.Visible
+                    pro3.Visibility = Windows.Visibility.Visible
+                End If
                 bw.WorkerSupportsCancellation = True
                 bw.WorkerReportsProgress = True
-                If bw.IsBusy = False Then
-                    gridbatchctrl.Visibility = Windows.Visibility.Visible
-                    Button1.Visibility = Windows.Visibility.Hidden
-                    buttonsingle.Visibility = Windows.Visibility.Hidden
-                    ButtonL2.IsEnabled = False
-                    combobox2.IsEnabled = False
-                    combobox3.IsEnabled = False
-                    num = Val(combobox2.Text)
-                    timewait = Val(combobox3.Text) * 60000
+                ButtonL2.IsEnabled = False
+                combobox2.IsEnabled = False
+                combobox3.IsEnabled = False
+                num = Val(combobox2.Text)
+                timewait = Val(combobox3.Text) * 1000
+                If isall = 0 Then
                     bw.RunWorkerAsync()
                 Else
-                    MsgBox("Wait")
+                    combobox1.BindingGroup = New BindingGroup
+                    combobox1.SelectedIndex = 0
+                    numa = combobox1.Items.Count
+                    username = combobox1.Text.Replace(" ", "")
+                    bwall.WorkerSupportsCancellation = True
+                    bwall.WorkerReportsProgress = True
+                    bwall.RunWorkerAsync()
                 End If
             End If
+        Else
+            MsgBox("Wait")
         End If
     End Sub
 
@@ -129,12 +142,12 @@ Class MainWindow
         ButtonL4.IsEnabled = False
         combobox1.IsEnabled = False
         username = combobox1.Text.Replace(" ", "")
-        If bw2.IsBusy = False Then
-            bw2.RunWorkerAsync()
+        If bwuser.IsBusy = False Then
+            bwuser.RunWorkerAsync()
         End If
     End Sub
 
-    Private Sub Bw2_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bw2.DoWork
+    Private Sub bwuser_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bwuser.DoWork
         If isloggedin = False Then
             login(username)
         Else
@@ -143,7 +156,7 @@ Class MainWindow
         Return
     End Sub
 
-    Private Sub Bw2_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bw2.RunWorkerCompleted
+    Private Sub bwuser_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwuser.RunWorkerCompleted
         If isloggedin = True Then
             namet.Content = username
             GridLogin.Visibility = Windows.Visibility.Hidden
@@ -160,27 +173,18 @@ Class MainWindow
         Me.Cursor = System.Windows.Input.Cursors.AppStarting
     End Sub
 
-    Private Sub buttonall_Click(sender As Object, e As RoutedEventArgs) Handles buttonall.Click
-        combobox1.BindingGroup = New BindingGroup
-        olesson = TextBox3.Text
-        bw3.WorkerSupportsCancellation = True
-        bw3.WorkerReportsProgress = True
-        buttonall.Visibility = Windows.Visibility.Hidden
-        If bw.IsBusy = False Then
-            numa = combobox1.Items.Count
-            bw3.RunWorkerAsync()
-        Else
-            MsgBox("Wait")
-        End If
-    End Sub
-
-    Private Sub Bw3_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bw3.DoWork
+    Private Sub bwall_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bwall.DoWork
+        isbwbusy = True
         For i As Integer = 1 To numa
-            If bw3.CancellationPending Then
+            If bwall.CancellationPending Then
                 Return
             End If
+            If isloggedin = True Then
+                logout()
+            End If
             progressa = i / numa * 100
-            bw3.ReportProgress(progressa)
+            login(username)
+            bwall.ReportProgress(progressa)
             Thread.Sleep(1000)
             Do
                 Thread.Sleep(1000)
@@ -189,55 +193,35 @@ Class MainWindow
         Return
     End Sub
 
-    Private Sub Bw3_ProgressChanged(ByVal sender As Object, ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles bw3.ProgressChanged
-        isbwbusy = True
-        pg.Value = progressa
+    Private Sub bwall_ProgressChanged(ByVal sender As Object, ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles bwall.ProgressChanged
+        combobox1.SelectedIndex += 1
+        username = combobox1.Text.Replace(" ", "")
+        progressbar2.Value = progressa
+        pro3.Content = Int(progressa).ToString + "%"
+        namet.Content = username
+        progressbar1.Value = 0
         If bw.IsBusy = False Then
-            If isloggedin = True Then
-                logout()
-                combobox1.SelectedIndex += 1
-            End If
-            username = combobox1.Text.Replace(" ", "")
-            login(username)
-            If isloggedin = True Then
-                namet.Content = username
-                GridLogin.Visibility = Windows.Visibility.Hidden
-                GridUser.Visibility = Windows.Visibility.Visible
-                ButtonL4.IsEnabled = True
-                combobox1.IsEnabled = True
-            Else
-                GridUser.Visibility = Windows.Visibility.Hidden
-                GridLogin.Visibility = Windows.Visibility.Visible
-                ButtonL2.IsEnabled = True
-                ButtonL4.IsEnabled = True
-                combobox1.IsEnabled = True
-            End If
             TextBox3.Text = olesson
             bw.WorkerSupportsCancellation = True
             bw.WorkerReportsProgress = True
-            If bw.IsBusy = False Then
-                gridbatchctrl.Visibility = Windows.Visibility.Visible
-                Button1.Visibility = Windows.Visibility.Hidden
-                buttonsingle.Visibility = Windows.Visibility.Hidden
-                ButtonL2.IsEnabled = False
-                combobox2.IsEnabled = False
-                combobox3.IsEnabled = False
-                num = Val(combobox2.Text)
-                timewait = Val(combobox3.Text) * 60000
-            End If
             bw.RunWorkerAsync()
             isbwbusy = False
         End If
     End Sub
-    Private Sub Bw3_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bw3.RunWorkerCompleted
-        MsgBox("Finish")
-        buttonall.Visibility = Windows.Visibility.Visible
+    Private Sub bwall_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwall.RunWorkerCompleted
+        If Me.IsVisible = True Then
+            MsgBox("Finished")
+        End If
+        buttonone.Visibility = Windows.Visibility.Visible
+        Button1.Visibility = Windows.Visibility.Visible
+        gridbatchctrl.Visibility = Windows.Visibility.Hidden
     End Sub
+
     Private Sub ButtonL2_Click(sender As Object, e As RoutedEventArgs) Handles ButtonL2.Click
         Me.Cursor = System.Windows.Input.Cursors.Wait
         ButtonL2.IsEnabled = False
-        If bw2.IsBusy = False Then
-            bw2.RunWorkerAsync()
+        If bwuser.IsBusy = False Then
+            bwuser.RunWorkerAsync()
         End If
     End Sub
 
@@ -270,14 +254,6 @@ Class MainWindow
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
-    End Sub
-
-    Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
-        plusone()
-    End Sub
-
-    Private Sub Button_Click_2(sender As Object, e As RoutedEventArgs)
-        minusone()
     End Sub
 
     Public Function random()
@@ -442,18 +418,6 @@ Class MainWindow
         Return 0
     End Function
 
-    Public Function minusone()
-        Try
-            Dim cl1 As String = TextBox3.Text.Substring(0, 11)
-            Dim cl2 As Integer = Val(TextBox3.Text.Substring(12)) - 1
-            If cl2 > 0 Then
-                TextBox3.Text = cl1 + Format(cl2, "00000")
-            End If
-        Catch ex As Exception
-        End Try
-        Return 0
-    End Function
-
     Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bw.DoWork
         For i As Integer = 1 To num
             If bw.CancellationPending Then
@@ -471,55 +435,50 @@ Class MainWindow
     Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles bw.ProgressChanged
         randomplus()
         go()
-        plusone()
+        If progress < 100 Then
+            plusone()
+        End If
         progressbar1.Value = progress
         pro2.Content = Int(progress).ToString + "%"
     End Sub
 
     Private Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
-        '   If Me.IsVisible = True Then
-        '   MsgBox("Finished")
-        '   End If
-        gridbatchctrl.Visibility = Windows.Visibility.Hidden
-        Button1.Visibility = Windows.Visibility.Visible
-        buttonsingle.Visibility = Windows.Visibility.Visible
-        ButtonL2.IsEnabled = True
-        combobox2.IsEnabled = True
-        combobox3.IsEnabled = True
+        If isall = 0 Then
+            gridbatchctrl.Visibility = Windows.Visibility.Hidden
+            Button1.Visibility = Windows.Visibility.Visible
+            buttonone.Visibility = Windows.Visibility.Visible
+            ButtonL2.Visibility = Windows.Visibility.Visible
+            ButtonL2.IsEnabled = True
+            combobox2.IsEnabled = True
+            combobox3.IsEnabled = True
+            If Me.IsVisible = True Then
+                MsgBox("Finished")
+            End If
+        End If
     End Sub
 
     Private Sub Buttonstop_Click(sender As Object, e As RoutedEventArgs) Handles buttonstop.Click
-        bw.CancelAsync()
-        If bw3.IsBusy = True Then
-            bw.CancelAsync()
+        If bwall.IsBusy = True Then
+            bwall.CancelAsync()
         End If
+        bw.CancelAsync()
         gridbatchctrl.Visibility = Windows.Visibility.Hidden
         Button1.Visibility = Windows.Visibility.Visible
-        buttonsingle.Visibility = Windows.Visibility.Visible
+        buttonone.Visibility = Windows.Visibility.Visible
+        ButtonL2.Visibility = Windows.Visibility.Visible
         ButtonL2.IsEnabled = True
         combobox2.IsEnabled = True
         combobox3.IsEnabled = True
-        buttonall.Visibility = Windows.Visibility.Visible
     End Sub
 
-    Private Sub buttonbatch_Click(sender As Object, e As RoutedEventArgs) Handles buttonbatch.Click
-        isbatch = 1
-        buttonbatch.Visibility = Windows.Visibility.Hidden
-        buttonp.Visibility = Windows.Visibility.Hidden
-        buttonm.Visibility = Windows.Visibility.Hidden
-        buttonsingle.Visibility = Windows.Visibility.Visible
-        combobox2.Visibility = Windows.Visibility.Visible
-        combobox3.Visibility = Windows.Visibility.Visible
-    End Sub
-
-    Private Sub buttonsingle_Click(sender As Object, e As RoutedEventArgs) Handles buttonsingle.Click
-        isbatch = 0
-        buttonsingle.Visibility = Windows.Visibility.Hidden
-        combobox2.Visibility = Windows.Visibility.Hidden
-        combobox3.Visibility = Windows.Visibility.Hidden
-        buttonbatch.Visibility = Windows.Visibility.Visible
-        buttonp.Visibility = Windows.Visibility.Visible
-        buttonm.Visibility = Windows.Visibility.Visible
+    Private Sub buttonone_Click(sender As Object, e As RoutedEventArgs) Handles buttonone.Click
+        If isall = 1 Then
+            buttonone.Content = "One"
+            isall = 0
+        Else
+            buttonone.Content = "All"
+            isall = 1
+        End If
     End Sub
 
     Private Sub MainWindow_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs)
@@ -541,17 +500,16 @@ Class MainWindow
         notify.Visible = False
     End Sub
 
-    Private Sub Bwa_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bwa.DoWork
+    Private Sub bwload_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bwload.DoWork
         Try
             Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
             Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
-            PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
     End Sub
 
-    Private Sub Bwa_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwa.RunWorkerCompleted
+    Private Sub bwload_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwload.RunWorkerCompleted
         Try
             Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
             Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()

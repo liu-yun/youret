@@ -61,7 +61,7 @@
         <TextBox x:Name="TextBox11" HorizontalAlignment="Left" Margin="179,122,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="46" Background="#7FFFFFFF" MaxLines="1" MaxLength="3" IsReadOnly="True" Grid.Row="1" Height="22"/>
         <TextBox x:Name="TextBox12" HorizontalAlignment="Left" Margin="179,149,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="46" Background="#7FFFFFFF" MaxLines="1" MaxLength="3" IsReadOnly="True" Grid.Row="1" Height="22"/>
         <TextBox x:Name="TextBox13" HorizontalAlignment="Left" Margin="179,176,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="46" Background="#7FFFFFFF" MaxLines="1" MaxLength="3" IsReadOnly="True" Grid.Row="1" Height="22"/>
-        <Button x:Name="Button2" Content="Random" HorizontalAlignment="Left" Height="41" Margin="106,95,0,0" VerticalAlignment="Top" Width="54" Grid.Row="1">
+        <Button x:Name="Button2" Content="Random" HorizontalAlignment="Left" Height="41" Margin="109,105,0,0" VerticalAlignment="Top" Width="54" Grid.Row="1">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <GradientStop Color="#BFF3F3F3" Offset="0"/>
@@ -71,7 +71,7 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="Button02" HorizontalAlignment="Left" Height="41" Margin="106,141,0,0" VerticalAlignment="Top" Width="54" Grid.Row="1">
+        <Button x:Name="Button02" HorizontalAlignment="Left" Height="41" Margin="109,156,0,0" VerticalAlignment="Top" Width="54" Grid.Row="1">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <GradientStop Color="#BFF3F3F3" Offset="0"/>
@@ -131,7 +131,7 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-            <Label x:Name="namet" Content="#name#" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="98" RenderTransformOrigin="0.5,0.5" Margin="54,1,0,0">
+            <Label x:Name="namet" Content="" HorizontalAlignment="Left" Height="27" VerticalAlignment="Top" Width="98" RenderTransformOrigin="0.5,0.5" Margin="54,1,0,0">
                 <Label.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -142,26 +142,6 @@
                 </Label.RenderTransform>
             </Label>
         </Grid>
-        <Button x:Name="buttonp" Content="+1" HorizontalAlignment="Left" Height="22" Margin="180,38,0,0" VerticalAlignment="Top" Width="21" Grid.Row="1" Click="Button_Click_1">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                    <GradientStop Color="#00EBEBEB" Offset="1"/>
-                    <GradientStop Color="#FFDDDDDD" Offset="1"/>
-                    <GradientStop Color="#FFCDCDCD" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <Button x:Name="buttonm" Content="-1" HorizontalAlignment="Left" Height="22" Margin="204,38,0,0" VerticalAlignment="Top" Width="21" Grid.Row="1" Click="Button_Click_2">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#FFF3F3F3" Offset="0"/>
-                    <GradientStop Color="#00EBEBEB" Offset="1"/>
-                    <GradientStop Color="#FFDDDDDD" Offset="1"/>
-                    <GradientStop Color="#FFCDCDCD" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
         <Button Content="Manage" HorizontalAlignment="Left" Margin="60,234,0,0" VerticalAlignment="Top" Width="52" Click="Button_Click" Height="45" Grid.Row="1">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -181,8 +161,13 @@
             <ListBoxItem Content="5"/>
             <ListBoxItem Content="6"/>
             <ListBoxItem Content="7"/>
+            <ListBoxItem Content="8"/>
+            <ListBoxItem Content="9"/>
+            <ListBoxItem Content="10"/>
+            <ListBoxItem Content="11"/>
+            <ListBoxItem Content="12"/>
         </ComboBox>
-        <Button x:Name="buttonbatch" Content="Batch" HorizontalAlignment="Left" Height="45" Margin="118,234,0,0" VerticalAlignment="Top" Width="52" Grid.Row="1">
+        <Button x:Name="buttonone" Content="One" HorizontalAlignment="Left" Height="45" Margin="118,234,0,0" VerticalAlignment="Top" Width="52" Grid.Row="1">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
                     <GradientStop Color="#BFFFFFFF" Offset="0"/>
@@ -193,27 +178,17 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <Button x:Name="buttonsingle" Content="Single" HorizontalAlignment="Left" Height="45" Margin="118,234,0,0" VerticalAlignment="Top" Width="52" Grid.Row="1">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
-                    <GradientStop Color="#BFFFFFFF" Offset="0"/>
-                    <GradientStop Color="#BF03F994" Offset="1"/>
-                    <GradientStop Color="#4C79FBC6" Offset="0.513"/>
-                    <GradientStop Color="#9964FABD" Offset="0.51"/>
-                    <GradientStop Color="#9967FABE" Offset="0.517"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
-        <ComboBox x:Name="combobox3" HorizontalAlignment="Left" Height="21" Margin="112,68,0,0" VerticalAlignment="Top" Width="48" IsEditable="True" SelectedIndex="1" RenderTransformOrigin="0.5,0.5" BorderBrush="#CCACACAC" Background="#7FFFFFFF" Grid.Row="1">
+        <ComboBox x:Name="combobox3" HorizontalAlignment="Left" Height="21" Margin="112,68,0,0" VerticalAlignment="Top" Width="48" IsEditable="True" SelectedIndex="3" RenderTransformOrigin="0.5,0.5" BorderBrush="#CCACACAC" Background="#7FFFFFFF" Grid.Row="1">
             <ListBoxItem Content="0"/>
-            <ListBoxItem Content="1"/>
-            <ListBoxItem Content="2"/>
-            <ListBoxItem Content="3"/>
-            <ListBoxItem Content="5"/>
-            <ListBoxItem Content="7"/>
+            <ListBoxItem Content="10"/>
+            <ListBoxItem Content="30"/>
+            <ListBoxItem Content="60"/>
+            <ListBoxItem Content="120"/>
+            <ListBoxItem Content="240"/>
+            <ListBoxItem Content="480"/>
         </ComboBox>
-        <Grid x:Name="gridbatchctrl" HorizontalAlignment="Left" Height="44" Margin="118,235,0,0" VerticalAlignment="Top" Width="110" Grid.Row="1">
-            <Button x:Name="buttonstop" Content="Stop" HorizontalAlignment="Left" Height="45" Margin="58,-1,-1,0" VerticalAlignment="Top" Width="52">
+        <Grid x:Name="gridbatchctrl" HorizontalAlignment="Left" Height="44" Margin="60,235,0,0" VerticalAlignment="Top" Width="168" Grid.Row="1">
+            <Button x:Name="buttonstop" Content="Stop" HorizontalAlignment="Left" Height="45" Margin="116,-1,0,0" VerticalAlignment="Top" Width="52">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                         <GradientStop Color="#99F3F3F3" Offset="0"/>
@@ -223,21 +198,13 @@
                     </LinearGradientBrush>
                 </Button.Background>
             </Button>
-            <ProgressBar x:Name="progressbar1" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="52" Margin="0,-1,0,0" Background="#D8E6E6E6" BorderBrush="#CC616060"/>
-            <Label x:Name="pro2" Content="%" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="51" HorizontalContentAlignment="Center" Margin="0,9,0,0"/>
-
+            <ProgressBar x:Name="progressbar1" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="52" Margin="58,-1,0,0" Background="#D8E6E6E6" BorderBrush="#CC616060"/>
+            <Label x:Name="prolesson" Content="Lessons" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="51" HorizontalContentAlignment="Center" Margin="59,3,0,0" FontSize="11"/>
+            <Label x:Name="pro2" Content="0%" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="51" HorizontalContentAlignment="Center" Margin="59,16,0,0"/>
+            <ProgressBar x:Name="progressbar2" HorizontalAlignment="Left" Height="45" VerticalAlignment="Top" Width="52" Margin="0,-1,0,0" Background="#D8E6E6E6" BorderBrush="#CC616060"/>
+            <Label x:Name="prouser" Content="Users" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="51" HorizontalContentAlignment="Center" Margin="0,3,0,0" FontSize="11"/>
+            <Label x:Name="pro3" Content="0%" HorizontalAlignment="Left" Height="22" VerticalAlignment="Top" Width="51" HorizontalContentAlignment="Center" Margin="0,16,0,0"/>
         </Grid>
         <Label x:Name="labelloading" Content="Loading..." HorizontalAlignment="Left" Height="25" Margin="57,0,0,0" VerticalAlignment="Top" Width="68" Grid.Row="1"/>
-        <ProgressBar x:Name="pg" HorizontalAlignment="Left" Height="37" Margin="106,187,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="54"/>
-        <Button x:Name="buttonall" Content="All" HorizontalAlignment="Left" Height="37" Margin="106,187,0,0" Grid.RowSpan="2" VerticalAlignment="Top" Width="54">
-            <Button.Background>
-                <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
-                    <GradientStop Color="#BFF3F3F3" Offset="0"/>
-                    <GradientStop Color="#4C00EB00" Offset="0.5"/>
-                    <GradientStop Color="#4C00EB00" Offset="0.497"/>
-                    <GradientStop Color="#AF00FF00" Offset="1"/>
-                </LinearGradientBrush>
-            </Button.Background>
-        </Button>
     </Grid>
 </Window>
