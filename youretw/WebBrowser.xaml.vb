@@ -13,7 +13,7 @@ Public Class WebBrowser
     WithEvents Timer As New DispatcherTimer()
     Protected Overrides Sub OnSourceInitialized(ByVal e As System.EventArgs)
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "TargetServerKey", "CN1-LLabs; path=/")
-        InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "APVersion", "5510; path=/")
+        InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "APVersion", "5705; path=/")
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "LastSessionID", aspsession + "; path=/")
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "ASP.NET_SessionId", aspsession + "; path=/")
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "ContentProvider", "; path=/")
@@ -25,7 +25,6 @@ Public Class WebBrowser
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "EcpACID", ecpacid + "; path=/")
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "IsWebVersion", "true; path=/")
         Webb1.Navigate("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx")
-
         Timer.Interval = TimeSpan.FromMilliseconds(1000)
         Timer.Start()
     End Sub
