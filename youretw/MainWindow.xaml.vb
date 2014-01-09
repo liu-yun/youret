@@ -210,7 +210,7 @@ Class MainWindow
     End Sub
     Private Sub bwall_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwall.RunWorkerCompleted
         If Me.IsVisible = True Then
-            MsgBox("Finished")
+            MsgBox("Done")
         End If
         buttonone.Visibility = Windows.Visibility.Visible
         Button1.Visibility = Windows.Visibility.Visible
@@ -451,7 +451,7 @@ Class MainWindow
             combobox2.IsEnabled = True
             combobox3.IsEnabled = True
             If Me.IsVisible = True Then
-                MsgBox("Finished")
+                MsgBox("Done")
             End If
         End If
     End Sub
