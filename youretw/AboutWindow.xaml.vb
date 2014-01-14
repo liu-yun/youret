@@ -30,15 +30,11 @@ Public Class AboutWindow
                 If hWnd <> IntPtr.Zero Then
                     Me.Background = Brushes.Transparent
                     HwndSource.FromHwnd(hWnd).CompositionTarget.BackgroundColor = Colors.Transparent
-
                     Dim m As New Margins(New Thickness(-1))
                     DwmExtendFrameIntoClientArea(hWnd, m)
                 End If
             End If
         Catch
-            ' ignore - if you get an error here, it's likely you aren't running on 
-            ' an os that has areo.
-
         End Try
     End Sub
     Private mouse_offset As Point

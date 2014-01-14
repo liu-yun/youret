@@ -409,9 +409,7 @@ Class MainWindow
 
     Public Function plusone()
         Try
-            Dim cl1 As String = TextBox3.Text.Substring(0, 11)
-            Dim cl2 As Integer = Val(TextBox3.Text.Substring(12)) + 1
-            TextBox3.Text = cl1 + Format(cl2, "00000")
+            TextBox3.Text = TextBox3.Text.Substring(0, 11) + Format(Val(TextBox3.Text.Substring(12)) + 1, "00000")
         Catch ex As Exception
         End Try
         Return 0
