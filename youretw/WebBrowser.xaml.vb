@@ -1,6 +1,5 @@
 ﻿Imports System.Net
 Imports System.Runtime.InteropServices
-Imports System.Windows.Threading
 
 Public Class WebBrowser
     <DllImport("wininet.dll", CharSet:=CharSet.Auto, SetLastError:=True)> _
@@ -10,7 +9,6 @@ Public Class WebBrowser
     Public ecpacid As String
     Dim url As String
     Public lesson As String
-    WithEvents Timer As New DispatcherTimer()
     Protected Overrides Sub OnSourceInitialized(ByVal e As System.EventArgs)
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "TargetServerKey", "CN1-LLabs; path=/")
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "APVersion", "5705; path=/")
@@ -25,19 +23,41 @@ Public Class WebBrowser
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "EcpACID", ecpacid + "; path=/")
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "IsWebVersion", "true; path=/")
         Webb1.Navigate("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx")
-        Timer.Interval = TimeSpan.FromMilliseconds(1000)
-        Timer.Start()
     End Sub
-    Private Sub dispatcherTimer_Tick(ByVal sender As Object, ByVal e As EventArgs) Handles Timer.tick
+
+    Private Sub Browser_Navigated(sender As Object, e As NavigationEventArgs) Handles Webb1.Navigated
         Try
             url = Webb1.Source.AbsoluteUri
+            omnibox.Text = url
             If url.Contains("LessonMainPageContainer.aspx") Then
                 lesson = url.Substring(109, 16)
-                Webb1.Navigate("about:blank")
+                Webb1.Dispose()
                 Me.Close()
             End If
         Catch ex As Exception
         End Try
+    End Sub
+
+    Private Sub buttonback_Click(sender As Object, e As RoutedEventArgs) Handles buttonback.Click
+        Try
+            Webb1.GoBack()
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub buttonforward_Click(sender As Object, e As RoutedEventArgs) Handles buttonforward.Click
+        Try
+            Webb1.GoForward()
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub buttonhome_Click(sender As Object, e As RoutedEventArgs) Handles buttonhome.Click
+        Webb1.Navigate("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx")
+    End Sub
+
+    Private Sub buttonrefresh_Click(sender As Object, e As RoutedEventArgs) Handles buttonrefresh.Click
+        Webb1.Navigate(omnibox.Text)
     End Sub
 End Class
 

@@ -486,7 +486,7 @@ Class MainWindow
 
     Protected Overrides Sub OnMouseRightButtonDown(e As MouseButtonEventArgs)
         MyBase.OnMouseRightButtonUp(e)
-        notify.Text = "YourET"
+        notify.Text = "YourET - " + combobox1.Text.Replace(" ", "")
         notify.Icon = My.Resources.yourettray
         notify.Visible = True
         Me.Hide()

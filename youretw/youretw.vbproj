@@ -255,6 +255,10 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="refresh.png" />
+    <Resource Include="back.png" />
+    <Resource Include="forward.png" />
+    <Resource Include="home.png" />
     <Content Include="Passwords.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

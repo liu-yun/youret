@@ -1,9 +1,21 @@
 ﻿<Window x:Class="WebBrowser"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    Title="Eliza" Height="600" Width="889" Icon="youret.ico" WindowStartupLocation="CenterOwner">
+    Title="Eliza" Height="650" Width="889" Icon="youret.ico" WindowStartupLocation="CenterOwner">
     <Grid>
-        <WebBrowser x:Name="Webb1" HorizontalAlignment="Left" Height="570" VerticalAlignment="Top" Width="873"/>
-
+        <WebBrowser x:Name="Webb1" HorizontalAlignment="Left" Width="873" Margin="0,33,0,0"/>
+        <Button x:Name="buttonback" HorizontalAlignment="Left" VerticalAlignment="Top" Width="32" Margin="10,0,0,0" Height="32" Background="{x:Null}" BorderBrush="{x:Null}">
+            <Image Height="26" Source="back.png" />
+        </Button>
+        <Button x:Name="buttonforward" HorizontalAlignment="Left" Margin="45,0,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="{x:Null}" BorderBrush="{x:Null}">
+            <Image Height="26" Width="26" Source="forward.png"/>
+        </Button>
+        <Button x:Name="buttonhome" HorizontalAlignment="Left" Margin="115,0,0,0" VerticalAlignment="Top" Width="32" Height="32" Background="{x:Null}" BorderBrush="{x:Null}">
+            <Image Height="26" Width="26" Source="home.png"/>
+        </Button>
+        <Button x:Name="buttonrefresh" HorizontalAlignment="Left" Margin="80,0,0,0" Width="32" Height="32" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}">
+            <Image Height="26" Width="26" Source="refresh.png"/>
+        </Button>
+        <TextBox x:Name="omnibox" Height="28" Margin="150,2,2,0" Text="" VerticalAlignment="Top" FontSize="16" BorderBrush="#54000000" MaxLines="1"/>
     </Grid>
 </Window>
