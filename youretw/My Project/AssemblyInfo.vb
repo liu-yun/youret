@@ -12,10 +12,10 @@ Imports System.Windows
 ' 查看程序集特性的值
 
 <Assembly: AssemblyTitle("YourET")> 
-<Assembly: AssemblyDescription("A MyET agent.")> 
-<Assembly: AssemblyCompany("Liuyun")> 
+<Assembly: AssemblyDescription("MyET agent")> 
+<Assembly: AssemblyCompany("Liu Yun")> 
 <Assembly: AssemblyProduct("YourET")> 
-<Assembly: AssemblyCopyright("Copyright © 2013 Liu Yun")> 
+<Assembly: AssemblyCopyright("Copyright © 2014 Liu Yun")> 
 <Assembly: AssemblyTrademark("")> 
 <Assembly: ComVisible(false)>
 
