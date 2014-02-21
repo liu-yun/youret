@@ -4,6 +4,7 @@ Public Class AboutWindow
     Protected Overrides Sub OnSourceInitialized(ByVal e As System.EventArgs)
         MyBase.OnSourceInitialized(e)
         ExtendGlass()
+        labelversion.Content = "Version " + My.Application.Info.Version.Major.ToString + "." + My.Application.Info.Version.Minor.ToString + "." + My.Application.Info.Version.Build.ToString
     End Sub
     Private Declare Sub DwmIsCompositionEnabled Lib "dwmapi.dll" (ByRef b As Boolean)
     Private Declare Sub DwmExtendFrameIntoClientArea Lib "dwmapi.dll" (ByVal hWnd As IntPtr, ByRef pMarInset As Margins)
