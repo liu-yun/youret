@@ -59,5 +59,11 @@ Public Class WebBrowser
     Private Sub buttonrefresh_Click(sender As Object, e As RoutedEventArgs) Handles buttonrefresh.Click
         Webb1.Navigate(omnibox.Text)
     End Sub
+
+    Private Sub omniboxenter(sender As Object, e As KeyEventArgs) Handles omnibox.KeyUp
+        If e.Key = Key.Enter Then
+            Webb1.Navigate(omnibox.Text)
+        End If
+    End Sub
 End Class
 

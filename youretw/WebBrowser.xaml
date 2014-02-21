@@ -16,6 +16,6 @@
         <Button x:Name="buttonrefresh" HorizontalAlignment="Left" Margin="80,0,0,0" Width="32" Height="32" VerticalAlignment="Top" Background="{x:Null}" BorderBrush="{x:Null}">
             <Image Height="26" Width="26" Source="refresh.png"/>
         </Button>
-        <TextBox x:Name="omnibox" Height="28" Margin="150,2,2,0" Text="" VerticalAlignment="Top" FontSize="16" BorderBrush="#54000000" MaxLines="1"/>
+        <TextBox x:Name="omnibox" Height="26" Margin="150,3,2,0" Text="" VerticalAlignment="Top" FontSize="16" BorderBrush="#54000000" MaxLines="1" AcceptsReturn="True"/>
     </Grid>
 </Window>
