@@ -397,7 +397,7 @@ Class MainWindow
             .Headers.Add("Accept", "application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, application/x-shockwave-flash, */*")
             .Headers.Add("Accept-Language", "zh-CN")
             .Headers.Add("Accept-Encoding", "gzip, deflate")
-            .Headers.Add("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.1; WOW64; Trident/6.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.0; WWTClient2; .NET4.0C; .NET4.0E; BRI/2; InfoPath.3; MASP)")
+            .Headers.Add("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; WWTClient2)")
             .Headers.Add("Referer", "http://cn.myet.com/ElizaWeb/Home.aspx")
             .Headers.Add("Cookie", cookielogin)
         End With
