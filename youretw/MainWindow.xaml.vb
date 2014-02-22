@@ -230,8 +230,7 @@ Class MainWindow
         WebBrowser1.aspsession = aspsession
         WebBrowser1.ecpacid = ecpacid
         WebBrowser1.ShowDialog()
-        If WebBrowser1.lesson = "" Then
-        Else
+        If WebBrowser1.lesson <> "" Then
             TextBox3.Text = WebBrowser1.lesson
         End If
     End Sub

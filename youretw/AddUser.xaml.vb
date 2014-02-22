@@ -45,17 +45,19 @@ Public Class AddUser
         Dim id As String = t1.Text
         Dim username As String = t2.Text
         Dim password As String = t3.Text
-        Dim conn As SqlConnection = New SqlConnection("Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Passwords.mdf;Integrated Security=True")
-        Dim sql As String = "INSERT INTO [Table] ([Id], [Username], [Password]) VALUES ('" + id + "', '" + username + "', '" + password + "' )"
-        Dim cmd As New SqlCommand(sql, conn)
-        conn.Open()
-        Try
-            Dim res As String = cmd.ExecuteNonQuery
-            conn.Close()
-            conn.Dispose()
-        Catch ex As Exception
-            MsgBox(ex.Message)
-        End Try
+        If id <> "" And username <> "" And password <> "" Then
+            Dim conn As SqlConnection = New SqlConnection("Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Passwords.mdf;Integrated Security=True")
+            Dim sql As String = "INSERT INTO [Table] ([Id], [Username], [Password]) VALUES ('" + id + "', '" + username + "', '" + password + "' )"
+            Dim cmd As New SqlCommand(sql, conn)
+            conn.Open()
+            Try
+                Dim res As String = cmd.ExecuteNonQuery
+                conn.Close()
+                conn.Dispose()
+            Catch ex As Exception
+                MsgBox(ex.Message)
+            End Try
+        End If
         Me.Close()
     End Sub
 End Class
