@@ -57,6 +57,7 @@ Class MainWindow
     Dim score4 As String
     Dim time As String
     Dim testmode As String
+    Dim dataet As String
     Dim username As String
     Dim password As String
     Dim cookielogin As String
@@ -65,6 +66,7 @@ Class MainWindow
     Dim aspsession As String
     Dim ecpacidtmp() As String
     Dim ecpacid As String
+    Dim data As String
     Public cookiesend As String
     Dim isall As String = 0
     WithEvents bw As New BackgroundWorker()
@@ -183,6 +185,7 @@ Class MainWindow
             progressa = i / numa * 100
             login(username)
             bwall.ReportProgress(progressa)
+            Thread.Sleep(1000)
             Do
                 Thread.Sleep(1000)
             Loop Until bw.IsBusy = False And isbwbusy = False
@@ -301,8 +304,11 @@ Class MainWindow
         Else
             testmode = 0
         End If
+        Dim randomid As String = Format(Rnd(), "0.000000000") + Rnd() / 8
+        dataet = "RandomID=" + randomid + "&FlashData=<ScoreInfo AccountID=""" + accountid + """ LessonID=""" + lesson + """ Score=""" + score0 + """ PronunciationScore=""" + score1 + """ PitchScore=""" + score2 + """ TimingScore=""" + score3 + """ IntensityScore=""" + score4 + """ TimeElapsed=""" + time + """ WhereFrom="""" TestMode=""" + testmode + """> <ignoreWhitespace>false</ignoreWhitespace> </ScoreInfo>"
+        Dim uri As New Uri("http://cn.myet.com/ElizaWeb/LessonSelfTestServices.aspx?op=UploadSpeakingScore")
         Try
-            web.UploadStringAsync(New Uri("http://cn.myet.com/ElizaWeb/LessonSelfTestServices.aspx?op=UploadSpeakingScore"), "POST", "RandomID=" + Format(Rnd(), "0.000000000") + Rnd() / 8 + "&FlashData=<ScoreInfo AccountID=""" + accountid + """ LessonID=""" + lesson + """ Score=""" + score0 + """ PronunciationScore=""" + score1 + """ PitchScore=""" + score2 + """ TimingScore=""" + score3 + """ IntensityScore=""" + score4 + """ TimeElapsed=""" + time + """ WhereFrom="""" TestMode=""" + testmode + """> <ignoreWhitespace>false</ignoreWhitespace> </ScoreInfo>")
+            web.UploadStringAsync(uri, "POST", dataet)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
@@ -323,6 +329,7 @@ Class MainWindow
             MsgBox(ex.Message)
         End Try
 
+        data = "__VIEWSTATE=&hdnCultureName=zh-CN&hdnSysAdminBulletinStatus=None&ReturnUrl=LoginPost.aspx&hdnPassword=&hdnWarningMsg=&hdnAutoLogin=N&hdnIsFirstLogin=Y&hdnLoginVerifyUrl=&hdnClientIP=&UserName=" + username + "&Password=" + password + "&btnLogin=%E7%99%BB%E5%BD%95"
         Dim web As New System.Net.WebClient()
         With web
             .Headers.Add("Accept", "application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, application/x-shockwave-flash, */*")
@@ -332,9 +339,11 @@ Class MainWindow
             .Headers.Add("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; WWTClient2)")
             .Headers.Add("Referer", "http://cn.myet.com/ElizaWeb/Alliance/MyET_Login.aspx?EptParams=BTKH2sQnFyVfRAldwWOL7CVXYIplizhUheIcGB2ULMs=&LoginVerifyUrl=")
         End With
-        web.UploadString("http://cn.myet.com/ElizaWeb/Authentication/ValidateMyETUsernameNPassword.aspx?SaveAccount=N", "__VIEWSTATE=&hdnCultureName=zh-CN&hdnSysAdminBulletinStatus=None&ReturnUrl=LoginPost.aspx&hdnPassword=&hdnWarningMsg=&hdnAutoLogin=N&hdnIsFirstLogin=Y&hdnLoginVerifyUrl=&hdnClientIP=&UserName=" + username + "&Password=" + password + "&btnLogin=%E7%99%BB%E5%BD%95")
+        web.UploadString("http://cn.myet.com/ElizaWeb/Authentication/ValidateMyETUsernameNPassword.aspx?SaveAccount=N", data)
         aspsession = web.ResponseHeaders.Get("Set-Cookie").Substring(18, 24)
         web.Dispose()
+        Dim url0 As String
+        cookielogin = "LLang=EN; TargetServerKey=CN1-LLabs; APVersion=5705; WPort=49156; LastSessionID=" + aspsession + "; RememberMyAccount=N; ASP.NET_SessionId=" + aspsession + "; ContentProvider=; IsCookieSupported=Y; IsAllianceAccount=N; TmpRememberMyAccount=N; ConnType=Local; APArgs=ContentProvider=&Version=5705&MediaLocation=&ServerKey=&LaunchMyETArg=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; APFixedArgs=Version=5705&MediaLocation=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; Mac=9E-05-40-A5-BE-DE"
         Dim web2 As New System.Net.WebClient()
         With web2
             .Headers.Add("Accept", "application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, application/x-shockwave-flash, */*")
@@ -343,9 +352,10 @@ Class MainWindow
             .Headers.Add("Content-Type", "application/x-www-form-urlencoded")
             .Headers.Add("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; WWTClient2)")
             .Headers.Add("Referer", "http://cn.myet.com/ElizaWeb/Authentication/ValidateMyETUsernameNPassword.aspx?SaveAccount=N")
-            .Headers.Add("Cookie", "LLang=EN; TargetServerKey=CN1-LLabs; APVersion=5705; WPort=49156; LastSessionID=" + aspsession + "; RememberMyAccount=N; ASP.NET_SessionId=" + aspsession + "; ContentProvider=; IsCookieSupported=Y; IsAllianceAccount=N; TmpRememberMyAccount=N; ConnType=Local; APArgs=ContentProvider=&Version=5705&MediaLocation=&ServerKey=&LaunchMyETArg=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; APFixedArgs=Version=5705&MediaLocation=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; Mac=9E-05-40-A5-BE-DE")
+            .Headers.Add("Cookie", cookielogin)
         End With
-        web2.DownloadString("http://cn.myet.com/ElizaWeb/Authentication/LoginPost.aspx?ESID=" + aspsession + "&UserName=" + username)
+        url0 = "http://cn.myet.com/ElizaWeb/Authentication/LoginPost.aspx?ESID=" + aspsession + "&UserName=" + username
+        web2.DownloadString(url0)
         Dim errorstate As Boolean = False
         Try
             ecpacidtmp = web2.ResponseHeaders.Get("Set-Cookie").Split("; path=/")
