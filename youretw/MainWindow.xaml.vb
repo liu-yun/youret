@@ -185,7 +185,6 @@ Class MainWindow
             progressa = i / numa * 100
             login(username)
             bwall.ReportProgress(progressa)
-            Thread.Sleep(1000)
             Do
                 Thread.Sleep(1000)
             Loop Until bw.IsBusy = False And isbwbusy = False
@@ -194,11 +193,11 @@ Class MainWindow
     End Sub
 
     Private Sub bwall_ProgressChanged(ByVal sender As Object, ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles bwall.ProgressChanged
+        namet.Content = username
         combobox1.SelectedIndex += 1
         username = combobox1.Text.Replace(" ", "")
         progressbar2.Value = progressa
         pro3.Content = Int(progressa).ToString + "%"
-        namet.Content = username
         progressbar1.Value = 0
         If bw.IsBusy = False Then
             TextBox3.Text = olesson
