@@ -213,6 +213,7 @@ Class MainWindow
         End If
         buttonone.Visibility = Windows.Visibility.Visible
         Button1.Visibility = Windows.Visibility.Visible
+        ButtonL2.Visibility = Windows.Visibility.Visible
         gridbatchctrl.Visibility = Windows.Visibility.Hidden
     End Sub
 
