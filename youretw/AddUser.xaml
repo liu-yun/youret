@@ -4,9 +4,9 @@
     Title="Add User" Height="86" Width="255" ResizeMode="NoResize" WindowStartupLocation="CenterOwner" ShowInTaskbar="False" Icon="youret.ico">
 
     <Grid Margin="0,0,2,0">
-        <TextBox x:Name="t1" HorizontalAlignment="Left" Height="22" Margin="2,25,0,0" VerticalAlignment="Top" Width="22" Background="#7FFFFFFF" AcceptsTab="True" MaxLines="1"/>
-        <TextBox x:Name="t2" HorizontalAlignment="Left" Height="22" Margin="28,25,0,0" VerticalAlignment="Top" Width="80" Background="#7FFFFFFF" AcceptsTab="True" MaxLines="1"/>
-        <TextBox x:Name="t3" HorizontalAlignment="Left" Height="22" Margin="112,25,0,0" VerticalAlignment="Top" Width="86" Background="#7FFFFFFF" AcceptsTab="True" AcceptsReturn="True" MaxLines="1"/>
+        <TextBox x:Name="TextBoxId" HorizontalAlignment="Left" Height="22" Margin="2,25,0,0" VerticalAlignment="Top" Width="22" Background="#7FFFFFFF" AcceptsTab="True" MaxLines="1"/>
+        <TextBox x:Name="TextBoxUsername" HorizontalAlignment="Left" Height="22" Margin="28,25,0,0" VerticalAlignment="Top" Width="80" Background="#7FFFFFFF" AcceptsTab="True" MaxLines="1"/>
+        <TextBox x:Name="TextBoxPassword" HorizontalAlignment="Left" Height="22" Margin="112,25,0,0" VerticalAlignment="Top" Width="86" Background="#7FFFFFFF" AcceptsTab="True" AcceptsReturn="True" MaxLines="1"/>
         <Button Content="OK" HorizontalAlignment="Left" Height="22" Margin="203,25,0,0" VerticalAlignment="Top" Width="34" Click="Button_Click">
             <Button.Background>
                 <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">

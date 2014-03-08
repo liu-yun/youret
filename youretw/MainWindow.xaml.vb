@@ -1,37 +1,44 @@
 ﻿Option Explicit Off
-Imports System.Windows.Interop
-Imports System.Data.SqlClient
-Imports System.IO
-Imports System.Threading
 Imports System.ComponentModel
+Imports System.Windows.Forms
+Imports System.Windows.Interop
+Imports System.Threading
+Imports System.Net
+Imports System.Data.SqlClient
+Imports youret.PasswordsDataSetTableAdapters
 
 Class MainWindow
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs) Handles MyBase.Loaded
         ExtendGlass()
-        GridUser.Visibility = Windows.Visibility.Hidden
-        gridbatchctrl.Visibility = Windows.Visibility.Hidden
-        combobox1.IsEnabled = False
-        ButtonL4.IsEnabled = False
-        bwload.RunWorkerAsync()
+        GridUser.Visibility = Visibility.Hidden
+        GridBatchControl.Visibility = Visibility.Hidden
+        ComboBoxUsers.IsEnabled = False
+        ButtonLogin.IsEnabled = False
+        _bwload.RunWorkerAsync()
     End Sub
+
     Protected Overrides Sub OnMouseLeftButtonDown(e As MouseButtonEventArgs)
         MyBase.OnMouseLeftButtonDown(e)
-        Me.DragMove()
+        DragMove()
     End Sub
+
     Private Declare Sub DwmIsCompositionEnabled Lib "dwmapi.dll" (ByRef b As Boolean)
     Private Declare Sub DwmExtendFrameIntoClientArea Lib "dwmapi.dll" (ByVal hWnd As IntPtr, ByRef pMarInset As Margins)
+
     Private Structure Margins
         Public Sub New(ByVal t As Thickness)
-            Left = CInt(t.Left)
-            Right = CInt(t.Right)
-            Top = CInt(t.Top)
-            Bottom = CInt(t.Bottom)
+            _left = CInt(t.Left)
+            _right = CInt(t.Right)
+            _top = CInt(t.Top)
+            _bottom = CInt(t.Bottom)
         End Sub
-        Public Left As Integer
-        Public Right As Integer
-        Public Top As Integer
-        Public Bottom As Integer
+
+        Private _left As Integer
+        Private _right As Integer
+        Private _top As Integer
+        Private _bottom As Integer
     End Structure
+
     Private Sub ExtendGlass()
         Try
             Dim b As Boolean
@@ -39,7 +46,7 @@ Class MainWindow
             If b Then
                 Dim hWnd As IntPtr = New WindowInteropHelper(Me).Handle
                 If hWnd <> IntPtr.Zero Then
-                    Me.Background = Brushes.Transparent
+                    Background = Brushes.Transparent
                     HwndSource.FromHwnd(hWnd).CompositionTarget.BackgroundColor = Colors.Transparent
                     Dim m As New Margins(New Thickness(-1))
                     DwmExtendFrameIntoClientArea(hWnd, m)
@@ -49,81 +56,70 @@ Class MainWindow
         End Try
     End Sub
 
-    Dim lesson As String
-    Dim score0 As String
-    Dim score1 As String
-    Dim score2 As String
-    Dim score3 As String
-    Dim score4 As String
-    Dim time As String
-    Dim testmode As String
-    Dim dataet As String
-    Dim username As String
-    Dim password As String
-    Dim cookielogin As String
-    Dim accountid As String
-    Dim accountidtmp As String
-    Dim aspsession As String
-    Dim ecpacidtmp() As String
-    Dim ecpacid As String
-    Dim data As String
-    Public cookiesend As String
-    Dim isall As String = 0
-    WithEvents bw As New BackgroundWorker()
-    WithEvents bwuser As New BackgroundWorker()
-    WithEvents bwload As New BackgroundWorker()
-    WithEvents bwall As New BackgroundWorker()
-    Dim progress As Double = 0
-    Dim progressa As Double = 0
-    Dim timewait As Integer
-    Dim num As Integer
-    Dim numa As Integer
-    Public isloggedin As Boolean = False
-    Public isbwbusy As Boolean = False
-    Dim olesson As String
-    WithEvents notify As New System.Windows.Forms.NotifyIcon
+    Dim _username As String
+    Dim _password As String
+    Dim _cookielogin As String
+    Dim _accountid As String
+    Dim _aspsession As String
+    Dim _ecpacid As String
+    Dim _datalogin As String
+    Dim _cookiesend As String
+    Dim _isall As String = 0
+    WithEvents _bwgo As New BackgroundWorker()
+    WithEvents _bwuser As New BackgroundWorker()
+    WithEvents _bwload As New BackgroundWorker()
+    WithEvents _bwall As New BackgroundWorker()
+    Dim _progresslessons As Double = 0
+    Dim _progressusers As Double = 0
+    Dim _timewait As Integer
+    Dim _numlessons As Integer
+    Dim _numusers As Integer
+    Dim _isloggedin As Boolean = False
+    Dim _isbwbusy As Boolean = False
+    Dim _lessonstart As String
+    WithEvents _notify As New NotifyIcon
 
-    Private Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
-        random()
+    Private Sub ButtonRandom_Click(sender As Object, e As EventArgs) Handles ButtonRandom.Click
+        Random()
     End Sub
 
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
-        If bw.IsBusy = False Then
+    Private Sub ButtonGo_Click(sender As Object, e As EventArgs) Handles ButtonGo.Click
+        If _bwgo.IsBusy = False Then
             Dim ok As Integer = MsgBox("Are you sure?", MsgBoxStyle.OkCancel, "Confirm")
             If ok = 1 Then
-                olesson = TextBox3.Text
-                buttonone.Visibility = Windows.Visibility.Hidden
-                Button1.Visibility = Windows.Visibility.Hidden
-                gridbatchctrl.Visibility = Windows.Visibility.Visible
-                If isall = 0 Then
-                    progressbar2.Visibility = Windows.Visibility.Hidden
-                    prouser.Visibility = Windows.Visibility.Hidden
-                    pro3.Visibility = Windows.Visibility.Hidden
+                _lessonstart = TextBoxLesson.Text
+                ButtonOneAll.Visibility = Visibility.Hidden
+                ButtonGo.Visibility = Visibility.Hidden
+                GridBatchControl.Visibility = Visibility.Visible
+                If _isall = 0 Then
+                    ProgressBarUsers.Visibility = Visibility.Hidden
+                    LabelUsers.Visibility = Visibility.Hidden
+                    LabelUsersProgress.Visibility = Visibility.Hidden
                 Else
-                    GridLogin.Visibility = Windows.Visibility.Hidden
-                    GridUser.Visibility = Windows.Visibility.Visible
-                    ButtonL2.Visibility = Windows.Visibility.Hidden
-                    progressbar2.Visibility = Windows.Visibility.Visible
-                    prouser.Visibility = Windows.Visibility.Visible
-                    pro3.Visibility = Windows.Visibility.Visible
+                    GridLogin.Visibility = Visibility.Hidden
+                    GridUser.Visibility = Visibility.Visible
+                    ButtonLogout.Visibility = Visibility.Hidden
+                    ProgressBarUsers.Visibility = Visibility.Visible
+                    LabelUsers.Visibility = Visibility.Visible
+                    LabelUsersProgress.Visibility = Visibility.Visible
                 End If
-                bw.WorkerSupportsCancellation = True
-                bw.WorkerReportsProgress = True
-                ButtonL2.IsEnabled = False
-                combobox2.IsEnabled = False
-                combobox3.IsEnabled = False
-                num = Val(combobox2.Text)
-                timewait = Val(combobox3.Text) * 1000
-                If isall = 0 Then
-                    bw.RunWorkerAsync()
+                _bwgo.WorkerSupportsCancellation = True
+                _bwgo.WorkerReportsProgress = True
+                ButtonLogout.IsEnabled = False
+                ComboBoxLessons.IsEnabled = False
+                ComboBoxTime.IsEnabled = False
+                _numlessons = Val(ComboBoxLessons.Text)
+                _timewait = Val(ComboBoxTime.Text) * 1000
+                If _isall = 0 Then
+                    _bwgo.RunWorkerAsync()
                 Else
-                    combobox1.BindingGroup = New BindingGroup
-                    combobox1.SelectedIndex = 0
-                    numa = combobox1.Items.Count
-                    username = combobox1.Text.Replace(" ", "")
-                    bwall.WorkerSupportsCancellation = True
-                    bwall.WorkerReportsProgress = True
-                    bwall.RunWorkerAsync()
+                    ComboBoxUsers.BindingGroup = New BindingGroup
+                    ComboBoxUsers.SelectedIndex = 0
+                    _numusers = ComboBoxUsers.Items.Count
+                    _username = ComboBoxUsers.Text.Replace(" ", "")
+                    _bwall.WorkerSupportsCancellation = True
+                    _bwall.WorkerReportsProgress = True
+                    _bwall.RunWorkerAsync()
                 End If
             End If
         Else
@@ -131,393 +127,441 @@ Class MainWindow
         End If
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As RoutedEventArgs) Handles Button3.Click
+    Private Sub ButtonAbout_Click(sender As Object, e As RoutedEventArgs) Handles ButtonAbout.Click
         Dim about = New AboutWindow
         about.Owner = Me
         about.ShowDialog()
     End Sub
 
-    Private Sub ButtonL4_Click(sender As Object, e As RoutedEventArgs) Handles ButtonL4.Click
-        Me.Cursor = System.Windows.Input.Cursors.Wait
-        ButtonL4.IsEnabled = False
-        combobox1.IsEnabled = False
-        username = combobox1.Text.Replace(" ", "")
-        If bwuser.IsBusy = False Then
-            bwuser.RunWorkerAsync()
+    Private Sub ButtonLogin_Click(sender As Object, e As RoutedEventArgs) Handles ButtonLogin.Click
+        Cursor = Input.Cursors.Wait
+        ButtonLogin.IsEnabled = False
+        ComboBoxUsers.IsEnabled = False
+        _username = ComboBoxUsers.Text.Replace(" ", "")
+        If _bwuser.IsBusy = False Then
+            _bwuser.RunWorkerAsync()
         End If
     End Sub
 
-    Private Sub bwuser_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bwuser.DoWork
-        If isloggedin = False Then
-            login(username)
+    Private Sub bwuser_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles _bwuser.DoWork
+        If _isloggedin = False Then
+            Login(_username)
         Else
-            logout()
+            Logout()
         End If
         Return
     End Sub
 
-    Private Sub bwuser_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwuser.RunWorkerCompleted
-        If isloggedin = True Then
-            namet.Content = username
-            GridLogin.Visibility = Windows.Visibility.Hidden
-            GridUser.Visibility = Windows.Visibility.Visible
-            ButtonL4.IsEnabled = True
-            combobox1.IsEnabled = True
+    Private Sub bwuser_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) _
+        Handles _bwuser.RunWorkerCompleted
+        If _isloggedin = True Then
+            LabelUser.Content = _username
+            GridLogin.Visibility = Visibility.Hidden
+            GridUser.Visibility = Visibility.Visible
+            ButtonLogin.IsEnabled = True
+            ComboBoxUsers.IsEnabled = True
         Else
-            GridUser.Visibility = Windows.Visibility.Hidden
-            GridLogin.Visibility = Windows.Visibility.Visible
-            ButtonL2.IsEnabled = True
-            ButtonL4.IsEnabled = True
-            combobox1.IsEnabled = True
+            GridUser.Visibility = Visibility.Hidden
+            GridLogin.Visibility = Visibility.Visible
+            ButtonLogout.IsEnabled = True
+            ButtonLogin.IsEnabled = True
+            ComboBoxUsers.IsEnabled = True
         End If
-        Me.Cursor = System.Windows.Input.Cursors.AppStarting
+        Cursor = Input.Cursors.AppStarting
     End Sub
 
-    Private Sub bwall_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bwall.DoWork
-        isbwbusy = True
-        For i As Integer = 1 To numa
-            If bwall.CancellationPending Then
+    Private Sub bwall_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles _bwall.DoWork
+        _isbwbusy = True
+        For i As Integer = 1 To _numusers
+            If _bwall.CancellationPending Then
                 Return
             End If
-            If isloggedin = True Then
-                logout()
+            If _isloggedin = True Then
+                Logout()
             End If
-            progressa = i / numa * 100
-            login(username)
-            bwall.ReportProgress(progressa)
+            _progressusers = i / _numusers * 100
+            Login(_username)
+            _bwall.ReportProgress(_progressusers)
             Do
                 Thread.Sleep(1000)
-            Loop Until bw.IsBusy = False And isbwbusy = False
+            Loop Until _bwgo.IsBusy = False And _isbwbusy = False
         Next
         Return
     End Sub
 
-    Private Sub bwall_ProgressChanged(ByVal sender As Object, ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles bwall.ProgressChanged
-        namet.Content = username
-        combobox1.SelectedIndex += 1
-        username = combobox1.Text.Replace(" ", "")
-        progressbar2.Value = progressa
-        pro3.Content = Int(progressa).ToString + "%"
-        progressbar1.Value = 0
-        If bw.IsBusy = False Then
-            TextBox3.Text = olesson
-            bw.WorkerSupportsCancellation = True
-            bw.WorkerReportsProgress = True
-            bw.RunWorkerAsync()
-            isbwbusy = False
+    Private Sub bwall_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) _
+        Handles _bwall.ProgressChanged
+        LabelUser.Content = _username
+        ComboBoxUsers.SelectedIndex += 1
+        _username = ComboBoxUsers.Text.Replace(" ", "")
+        ProgressBarUsers.Value = _progressusers
+        LabelUsersProgress.Content = Int(_progressusers).ToString + "%"
+        ProgressBarLessons.Value = 0
+        If _bwgo.IsBusy = False Then
+            TextBoxLesson.Text = _lessonstart
+            _bwgo.WorkerSupportsCancellation = True
+            _bwgo.WorkerReportsProgress = True
+            _bwgo.RunWorkerAsync()
+            _isbwbusy = False
         End If
     End Sub
-    Private Sub bwall_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwall.RunWorkerCompleted
-        If Me.IsVisible = True Then
+
+    Private Sub bwall_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) _
+        Handles _bwall.RunWorkerCompleted
+        If IsVisible = True Then
             MsgBox("Done")
         End If
-        buttonone.Visibility = Windows.Visibility.Visible
-        Button1.Visibility = Windows.Visibility.Visible
-        ButtonL2.Visibility = Windows.Visibility.Visible
-        gridbatchctrl.Visibility = Windows.Visibility.Hidden
+        ButtonOneAll.Visibility = Visibility.Visible
+        ButtonGo.Visibility = Visibility.Visible
+        ButtonLogout.Visibility = Visibility.Visible
+        ButtonLogout.IsEnabled = True
+        GridBatchControl.Visibility = Visibility.Hidden
     End Sub
 
-    Private Sub ButtonL2_Click(sender As Object, e As RoutedEventArgs) Handles ButtonL2.Click
-        Me.Cursor = System.Windows.Input.Cursors.Wait
-        ButtonL2.IsEnabled = False
-        If bwuser.IsBusy = False Then
-            bwuser.RunWorkerAsync()
+    Private Sub ButtonLogout_Click(sender As Object, e As RoutedEventArgs) Handles ButtonLogout.Click
+        Cursor = Input.Cursors.Wait
+        ButtonLogout.IsEnabled = False
+        If _bwuser.IsBusy = False Then
+            _bwuser.RunWorkerAsync()
         End If
     End Sub
 
-    Private Sub Buttonse_Click_1(sender As Object, e As RoutedEventArgs) Handles Buttonse.Click
-        Dim WebBrowser1 As New WebBrowser
-        WebBrowser1.Owner = Me
-        WebBrowser1.aspsession = aspsession
-        WebBrowser1.ecpacid = ecpacid
-        WebBrowser1.ShowDialog()
-        If WebBrowser1.lesson <> "" Then
-            TextBox3.Text = WebBrowser1.lesson
+    Private Sub ButtonSelect_Click(sender As Object, e As RoutedEventArgs) Handles ButtonSelect.Click
+        Dim browser As New WebBrowser
+        browser.Owner = Me
+        browser.Aspsession = _aspsession
+        browser.Ecpacid = _ecpacid
+        browser.ShowDialog()
+        If browser.lesson <> "" Then
+            TextBoxLesson.Text = browser.Lesson
         End If
     End Sub
 
-    Private Sub Button02_Click(sender As Object, e As RoutedEventArgs) Handles Button02.Click
-        randomplus()
+    Private Sub ButtonRandomPlus_Click(sender As Object, e As RoutedEventArgs) Handles ButtonRandomPlus.Click
+        RandomPlus()
     End Sub
 
-    Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
-        Dim pwdmgr As New PasswordMgr
-        pwdmgr.Owner = Me
-        pwdmgr.ShowDialog()
+    Private Sub ButtonManage_Click(sender As Object, e As RoutedEventArgs) Handles ButtonManage.Click
+        Dim passwordmgr As New PasswordMgr
+        passwordmgr.Owner = Me
+        passwordmgr.ShowDialog()
         Try
-            Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
-            Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
-            PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
-            Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
-            TableViewSource.View.MoveCurrentToFirst()
+            Dim passwordsDataSet As PasswordsDataSet = CType(FindResource("PasswordsDataSet"), PasswordsDataSet)
+            Dim passwordsDataSetTableTableAdapter As TableTableAdapter = New TableTableAdapter()
+            passwordsDataSetTableTableAdapter.Fill(passwordsDataSet.Table)
+            Dim tableViewSource As CollectionViewSource = CType(FindResource("TableViewSource"), CollectionViewSource)
+            tableViewSource.View.MoveCurrentToFirst()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
     End Sub
 
-    Public Function random()
-        TextBox4.Text = (Val(TextBox5.Text) + Val(TextBox6.Text) + Val(TextBox7.Text) + Val(TextBox8.Text)) / 4
-        TextBox10.Text = Val(TextBox5.Text) + Format(Rnd(), ".00")
-        TextBox11.Text = Val(TextBox6.Text) + Format(Rnd(), ".00")
-        TextBox12.Text = Val(TextBox7.Text) + Format(Rnd(), ".00")
-        TextBox13.Text = Val(TextBox8.Text) + Format(Rnd(), ".00")
-        TextBox9.Text = Format((Val(TextBox10.Text) + Val(TextBox11.Text) + Val(TextBox12.Text) + Val(TextBox13.Text)) / 4, ".00")
-        TextBox15.Text = Int(400 + 200 * Rnd())
+    Public Function Random()
+        TextBoxScoreIn0.Text = (Val(TextBoxScoreIn1.Text) + Val(TextBoxScoreIn2.Text) + Val(TextBoxScoreIn3.Text) + Val(TextBoxScoreIn4.Text)) / 4
+        TextBoxScore1.Text = Val(TextBoxScoreIn1.Text) + Format(Rnd(), ".00")
+        TextBoxScore2.Text = Val(TextBoxScoreIn2.Text) + Format(Rnd(), ".00")
+        TextBoxScore3.Text = Val(TextBoxScoreIn3.Text) + Format(Rnd(), ".00")
+        TextBoxScore4.Text = Val(TextBoxScoreIn4.Text) + Format(Rnd(), ".00")
+        TextBoxScore0.Text = Format((Val(TextBoxScore1.Text) + Val(TextBoxScore2.Text) + Val(TextBoxScore3.Text) + Val(TextBoxScore4.Text)) / 4,
+                               ".00")
+        TextBoxTime.Text = Int(400 + 200 * Rnd())
         Return 0
     End Function
 
-    Public Function randomplus()
-        TextBox4.Text = (Val(TextBox5.Text) + Val(TextBox6.Text) + Val(TextBox7.Text) + Val(TextBox8.Text)) / 4
-        TextBox10.Text = Val(TextBox5.Text) + Format((4 * Rnd() + 1) * Rnd(), ".00")
-        TextBox11.Text = Val(TextBox6.Text) + Format((4 * Rnd() + 1) * Rnd(), ".00")
-        TextBox12.Text = Val(TextBox7.Text) + Format((4 * Rnd() + 1) * Rnd(), ".00")
-        TextBox13.Text = Val(TextBox8.Text) + Format((4 * Rnd() + 1) * Rnd(), ".00")
-        TextBox9.Text = Format((Val(TextBox10.Text) + Val(TextBox11.Text) + Val(TextBox12.Text) + Val(TextBox13.Text)) / 4, ".00")
-        TextBox15.Text = Int(400 + 200 * Rnd())
+    Public Function RandomPlus()
+        TextBoxScoreIn0.Text = (Val(TextBoxScoreIn1.Text) + Val(TextBoxScoreIn2.Text) + Val(TextBoxScoreIn3.Text) + Val(TextBoxScoreIn4.Text)) / 4
+        TextBoxScore1.Text = Val(TextBoxScoreIn1.Text) + Format((4 * Rnd() + 1) * Rnd(), ".00")
+        TextBoxScore2.Text = Val(TextBoxScoreIn2.Text) + Format((4 * Rnd() + 1) * Rnd(), ".00")
+        TextBoxScore3.Text = Val(TextBoxScoreIn3.Text) + Format((4 * Rnd() + 1) * Rnd(), ".00")
+        TextBoxScore4.Text = Val(TextBoxScoreIn4.Text) + Format((4 * Rnd() + 1) * Rnd(), ".00")
+        TextBoxScore0.Text = Format((Val(TextBoxScore1.Text) + Val(TextBoxScore2.Text) + Val(TextBoxScore3.Text) + Val(TextBoxScore4.Text)) / 4,
+                               ".00")
+        TextBoxTime.Text = Int(400 + 200 * Rnd())
         Return 0
     End Function
 
-    Public Function go()
-        Dim web As New System.Net.WebClient()
-        With web
+    Public Function Go()
+        Dim lesson As String
+        Dim score0 As String
+        Dim score1 As String
+        Dim score2 As String
+        Dim score3 As String
+        Dim score4 As String
+        Dim time As String
+        Dim istestmode As String
+        Dim datago As String
+        Dim webgo As New WebClient()
+        With webgo
             .Headers.Clear()
             .Headers.Add("Accept", "*/*")
             .Headers.Add("Accept-Language", "zh-CN")
-            .Headers.Add("Referer", "http://cn.myet.com/Upload/ElizaWeb4Content/FlashSettings/LessonSelfTest.swf?CultureName=zh-CN&MyETURLPrefix=http://cn.myet.com/ElizaWeb&Sock")
+            .Headers.Add("Referer",
+                         "http://cn.myet.com/Upload/ElizaWeb4Content/FlashSettings/LessonSelfTest.swf?CultureName=zh-CN&MyETURLPrefix=http://cn.myet.com/ElizaWeb&Sock")
             .Headers.Add("x-flash-version", "11,5,502,149")
             .Headers.Add("Content-Type", "application/x-www-form-urlencoded")
             .Headers.Add("Accept-Encoding", "gzip, deflate")
-            .Headers.Add("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; WWTClient2)")
+            .Headers.Add("User-Agent",
+                         "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; WWTClient2)")
             .Headers.Add("Pragma", "no-cache")
-            .Headers.Add("Cookie", cookiesend)
+            .Headers.Add("Cookie", _cookiesend)
         End With
-        lesson = TextBox3.Text
-        score0 = TextBox9.Text
-        score1 = TextBox10.Text
-        score2 = TextBox11.Text
-        score3 = TextBox12.Text
-        score4 = TextBox13.Text
-        time = TextBox15.Text
-        If CheckBox1.IsChecked = True Then
-            testmode = 1
+        lesson = TextBoxLesson.Text
+        score0 = TextBoxScore0.Text
+        score1 = TextBoxScore1.Text
+        score2 = TextBoxScore2.Text
+        score3 = TextBoxScore3.Text
+        score4 = TextBoxScore4.Text
+        time = TextBoxTime.Text
+        If CheckBoxTest.IsChecked = True Then
+            istestmode = 1
         Else
-            testmode = 0
+            istestmode = 0
         End If
         Dim randomid As String = Format(Rnd(), "0.000000000") + Rnd() / 8
-        dataet = "RandomID=" + randomid + "&FlashData=<ScoreInfo AccountID=""" + accountid + """ LessonID=""" + lesson + """ Score=""" + score0 + """ PronunciationScore=""" + score1 + """ PitchScore=""" + score2 + """ TimingScore=""" + score3 + """ IntensityScore=""" + score4 + """ TimeElapsed=""" + time + """ WhereFrom="""" TestMode=""" + testmode + """> <ignoreWhitespace>false</ignoreWhitespace> </ScoreInfo>"
-        Dim uri As New Uri("http://cn.myet.com/ElizaWeb/LessonSelfTestServices.aspx?op=UploadSpeakingScore")
+        datago = "RandomID=" + randomid + "&FlashData=<ScoreInfo AccountID=""" + _accountid + """ LessonID=""" + lesson +
+                 """ Score=""" + score0 + """ PronunciationScore=""" + score1 + """ PitchScore=""" + score2 +
+                 """ TimingScore=""" + score3 + """ IntensityScore=""" + score4 + """ TimeElapsed=""" + time +
+                 """ WhereFrom="""" TestMode=""" + istestmode +
+                 """> <ignoreWhitespace>false</ignoreWhitespace> </ScoreInfo>"
         Try
-            web.UploadStringAsync(uri, "POST", dataet)
+            webgo.UploadStringAsync(New Uri("http://cn.myet.com/ElizaWeb/LessonSelfTestServices.aspx?op=UploadSpeakingScore"), "POST", datago)
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
-        web.Dispose()
+        webgo.Dispose()
         Return 0
     End Function
 
-    Public Function login(ByRef username As String)
-        Dim conn As SqlConnection = New SqlConnection("Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Passwords.mdf;Integrated Security=True")
+    Public Function Login(ByRef username As String)
+        Dim accountidtmp As String
+        Dim ecpacidtmp() As String
+        Dim conn As SqlConnection =
+                New SqlConnection(
+                    "Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Passwords.mdf;Integrated Security=True")
         Dim sql As String = "SELECT Password FROM [Table] WHERE (Username = '" + username + "')"
         Dim cmd As New SqlCommand(sql, conn)
         Try
             conn.Open()
-            password = cmd.ExecuteScalar().ToString.Replace(" ", "")
+            _password = cmd.ExecuteScalar().ToString.Replace(" ", "")
             conn.Close()
             conn.Dispose()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
 
-        data = "__VIEWSTATE=&hdnCultureName=zh-CN&hdnSysAdminBulletinStatus=None&ReturnUrl=LoginPost.aspx&hdnPassword=&hdnWarningMsg=&hdnAutoLogin=N&hdnIsFirstLogin=Y&hdnLoginVerifyUrl=&hdnClientIP=&UserName=" + username + "&Password=" + password + "&btnLogin=%E7%99%BB%E5%BD%95"
-        Dim web As New System.Net.WebClient()
-        With web
-            .Headers.Add("Accept", "application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, application/x-shockwave-flash, */*")
+        _datalogin =
+            "__VIEWSTATE=&hdnCultureName=zh-CN&hdnSysAdminBulletinStatus=None&ReturnUrl=LoginPost.aspx&hdnPassword=&hdnWarningMsg=&hdnAutoLogin=N&hdnIsFirstLogin=Y&hdnLoginVerifyUrl=&hdnClientIP=&UserName=" +
+            username + "&Password=" + _password + "&btnLogin=%E7%99%BB%E5%BD%95"
+        Dim weblogin1 As New WebClient()
+        With weblogin1
+            .Headers.Add("Accept",
+                         "application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, application/x-shockwave-flash, */*")
             .Headers.Add("Accept-Language", "zh-CN")
             .Headers.Add("Accept-Encoding", "gzip, deflate")
             .Headers.Add("Content-Type", "application/x-www-form-urlencoded")
-            .Headers.Add("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; WWTClient2)")
-            .Headers.Add("Referer", "http://cn.myet.com/ElizaWeb/Alliance/MyET_Login.aspx?EptParams=BTKH2sQnFyVfRAldwWOL7CVXYIplizhUheIcGB2ULMs=&LoginVerifyUrl=")
+            .Headers.Add("User-Agent",
+                         "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; WWTClient2)")
+            .Headers.Add("Referer",
+                         "http://cn.myet.com/ElizaWeb/Alliance/MyET_Login.aspx?EptParams=BTKH2sQnFyVfRAldwWOL7CVXYIplizhUheIcGB2ULMs=&LoginVerifyUrl=")
         End With
-        web.UploadString("http://cn.myet.com/ElizaWeb/Authentication/ValidateMyETUsernameNPassword.aspx?SaveAccount=N", data)
-        aspsession = web.ResponseHeaders.Get("Set-Cookie").Substring(18, 24)
-        web.Dispose()
-        Dim url0 As String
-        cookielogin = "LLang=EN; TargetServerKey=CN1-LLabs; APVersion=5705; WPort=49156; LastSessionID=" + aspsession + "; RememberMyAccount=N; ASP.NET_SessionId=" + aspsession + "; ContentProvider=; IsCookieSupported=Y; IsAllianceAccount=N; TmpRememberMyAccount=N; ConnType=Local; APArgs=ContentProvider=&Version=5705&MediaLocation=&ServerKey=&LaunchMyETArg=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; APFixedArgs=Version=5705&MediaLocation=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; Mac=9E-05-40-A5-BE-DE"
-        Dim web2 As New System.Net.WebClient()
-        With web2
-            .Headers.Add("Accept", "application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, application/x-shockwave-flash, */*")
+        weblogin1.UploadString("http://cn.myet.com/ElizaWeb/Authentication/ValidateMyETUsernameNPassword.aspx?SaveAccount=N",
+                         _datalogin)
+        _aspsession = weblogin1.ResponseHeaders.Get("Set-Cookie").Substring(18, 24)
+        weblogin1.Dispose()
+        Dim urlauth As String
+        _cookielogin = "LLang=EN; TargetServerKey=CN1-LLabs; APVersion=5705; WPort=49156; LastSessionID=" + _aspsession +
+                      "; RememberMyAccount=N; ASP.NET_SessionId=" + _aspsession +
+                      "; ContentProvider=; IsCookieSupported=Y; IsAllianceAccount=N; TmpRememberMyAccount=N; ConnType=Local; APArgs=ContentProvider=&Version=5705&MediaLocation=&ServerKey=&LaunchMyETArg=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; APFixedArgs=Version=5705&MediaLocation=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; Mac=9E-05-40-A5-BE-DE"
+        Dim weblogin2 As New WebClient()
+        With weblogin2
+            .Headers.Add("Accept",
+                         "application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, application/x-shockwave-flash, */*")
             .Headers.Add("Accept-Language", "zh-CN")
             .Headers.Add("Accept-Encoding", "gzip, deflate")
             .Headers.Add("Content-Type", "application/x-www-form-urlencoded")
-            .Headers.Add("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; WWTClient2)")
-            .Headers.Add("Referer", "http://cn.myet.com/ElizaWeb/Authentication/ValidateMyETUsernameNPassword.aspx?SaveAccount=N")
-            .Headers.Add("Cookie", cookielogin)
+            .Headers.Add("User-Agent",
+                         "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; WWTClient2)")
+            .Headers.Add("Referer",
+                         "http://cn.myet.com/ElizaWeb/Authentication/ValidateMyETUsernameNPassword.aspx?SaveAccount=N")
+            .Headers.Add("Cookie", _cookielogin)
         End With
-        url0 = "http://cn.myet.com/ElizaWeb/Authentication/LoginPost.aspx?ESID=" + aspsession + "&UserName=" + username
-        web2.DownloadString(url0)
+        urlauth = "http://cn.myet.com/ElizaWeb/Authentication/LoginPost.aspx?ESID=" + _aspsession + "&UserName=" + username
+        weblogin2.DownloadString(urlauth)
         Dim errorstate As Boolean = False
         Try
-            ecpacidtmp = web2.ResponseHeaders.Get("Set-Cookie").Split("; path=/")
-            ecpacid = ecpacidtmp(2).Substring(16, 24)
+            ecpacidtmp = weblogin2.ResponseHeaders.Get("Set-Cookie").Split("; path=/")
+            _ecpacid = ecpacidtmp(2).Substring(16, 24)
         Catch ex As Exception
             MsgBox("Error", MsgBoxStyle.Critical, "YourET")
             errorstate = True
         End Try
-        web2.Dispose()
+        weblogin2.Dispose()
         If errorstate = False Then
-            Dim web3 As New System.Net.WebClient()
-            With web3
-                .Headers.Add("Accept", "application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, application/x-shockwave-flash, */*")
+            Dim weblogin3 As New WebClient()
+            With weblogin3
+                .Headers.Add("Accept",
+                             "application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, application/x-shockwave-flash, */*")
                 .Headers.Add("Accept-Language", "zh-CN")
                 .Headers.Add("Accept-Encoding", "gzip, deflate")
-                .Headers.Add("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; WWTClient2)")
+                .Headers.Add("User-Agent",
+                             "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; WWTClient2)")
                 .Headers.Add("Referer", "http://cn.myet.com/ElizaWeb/Home.aspx")
-                .Headers.Add("Cookie", cookielogin)
-                .Headers.Add("EcpACID", ecpacid)
+                .Headers.Add("Cookie", _cookielogin)
+                .Headers.Add("EcpACID", _ecpacid)
                 .Headers.Add("OnlinePurchaseEntrance", "ELIZAWEB")
-                .Headers.Add("TmpPassword", password)
+                .Headers.Add("TmpPassword", _password)
             End With
-            accountidtmp = web3.DownloadString("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx")
-            accountid = accountidtmp.Substring(195, 6)
-            web3.Dispose()
-            cookiesend = "LLang=EN; TargetServerKey=CN1-LLabs; APVersion=5705; WPort=49155; LastSessionID=" + aspsession + "; MyETAccountID=" + username + "; RememberMyAccount=N; LastLessonID=CN-PEP-XXQ-00033; ASP.NET_SessionId=" + aspsession + "; ContentProvider=; IsCookieSupported=Y; IsAllianceAccount=N; TmpRememberMyAccount=Y; TmpPassword=" + password + "; EcpACID=" + ecpacid + "; CourseIDInSessionInfo=PEP-XXQ-005; ConnType=Local; APArgs=ContentProvider=&Version=5705&MediaLocation=&ServerKey=&LaunchMyETArg=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; APFixedArgs=Version=5705&MediaLocation=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; Mac=9E-05-40-A5-BE-DE"
+            accountidtmp = weblogin3.DownloadString("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx")
+            _accountid = accountidtmp.Substring(195, 6)
+            weblogin3.Dispose()
+            _cookiesend = "LLang=EN; TargetServerKey=CN1-LLabs; APVersion=5705; WPort=49155; LastSessionID=" + _aspsession +
+                         "; MyETAccountID=" + username +
+                         "; RememberMyAccount=N; LastLessonID=CN-PEP-XXQ-00033; ASP.NET_SessionId=" + _aspsession +
+                         "; ContentProvider=; IsCookieSupported=Y; IsAllianceAccount=N; TmpRememberMyAccount=Y; TmpPassword=" +
+                         _password + "; EcpACID=" + _ecpacid +
+                         "; CourseIDInSessionInfo=PEP-XXQ-005; ConnType=Local; APArgs=ContentProvider=&Version=5705&MediaLocation=&ServerKey=&LaunchMyETArg=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; APFixedArgs=Version=5705&MediaLocation=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; Mac=9E-05-40-A5-BE-DE"
         End If
         If errorstate = False Then
-            isloggedin = True
+            _isloggedin = True
         Else
-            isloggedin = False
+            _isloggedin = False
         End If
         Return 0
     End Function
 
-    Public Function logout()
-        Dim web4 As New System.Net.WebClient()
-        With web4
-            .Headers.Add("Accept", "application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, application/x-shockwave-flash, */*")
+    Public Function Logout()
+        Dim weblogout As New WebClient()
+        With weblogout
+            .Headers.Add("Accept",
+                         "application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, application/x-shockwave-flash, */*")
             .Headers.Add("Accept-Language", "zh-CN")
             .Headers.Add("Accept-Encoding", "gzip, deflate")
-            .Headers.Add("User-Agent", "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; WWTClient2)")
+            .Headers.Add("User-Agent",
+                         "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; WWTClient2)")
             .Headers.Add("Referer", "http://cn.myet.com/ElizaWeb/Home.aspx")
-            .Headers.Add("Cookie", cookielogin)
+            .Headers.Add("Cookie", _cookielogin)
         End With
-        web4.DownloadString("http://cn.myet.com/ElizaWeb/Logout.aspx")
-        web4.Dispose()
-        isloggedin = False
+        weblogout.DownloadString("http://cn.myet.com/ElizaWeb/Logout.aspx")
+        weblogout.Dispose()
+        _isloggedin = False
         Return 0
     End Function
 
-    Public Function plusone()
+    Public Function PlusOne()
         Try
-            TextBox3.Text = TextBox3.Text.Substring(0, 11) + Format(Val(TextBox3.Text.Substring(12)) + 1, "00000")
+            TextBoxLesson.Text = TextBoxLesson.Text.Substring(0, 11) + Format(Val(TextBoxLesson.Text.Substring(12)) + 1, "00000")
         Catch ex As Exception
         End Try
         Return 0
     End Function
 
-    Private Sub Bw_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bw.DoWork
-        For i As Integer = 1 To num
-            If bw.CancellationPending Then
+    Private Sub bwgo_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles _bwgo.DoWork
+        For i As Integer = 1 To _numlessons
+            If _bwgo.CancellationPending Then
                 Return
             End If
-            progress = i / num * 100
-            bw.ReportProgress(progress)
-            If i < num Then
-                Thread.Sleep(timewait)
+            _progresslessons = i / _numlessons * 100
+            _bwgo.ReportProgress(_progresslessons)
+            If i < _numlessons Then
+                Thread.Sleep(_timewait)
             End If
         Next
         Return
     End Sub
 
-    Private Sub Bw_ProgressChanged(ByVal sender As Object, ByVal e As System.ComponentModel.ProgressChangedEventArgs) Handles bw.ProgressChanged
-        randomplus()
-        go()
-        If progress < 100 Then
-            plusone()
+    Private Sub bwgo_ProgressChanged(ByVal sender As Object, ByVal e As ProgressChangedEventArgs) _
+        Handles _bwgo.ProgressChanged
+        RandomPlus()
+        Go()
+        If _progresslessons < 100 Then
+            PlusOne()
         End If
-        progressbar1.Value = progress
-        pro2.Content = Int(progress).ToString + "%"
+        ProgressBarLessons.Value = _progresslessons
+        LabelLessonsProgress.Content = Int(_progresslessons).ToString + "%"
     End Sub
 
-    Private Sub Bw_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bw.RunWorkerCompleted
-        If isall = 0 Then
-            gridbatchctrl.Visibility = Windows.Visibility.Hidden
-            Button1.Visibility = Windows.Visibility.Visible
-            buttonone.Visibility = Windows.Visibility.Visible
-            ButtonL2.Visibility = Windows.Visibility.Visible
-            ButtonL2.IsEnabled = True
-            combobox2.IsEnabled = True
-            combobox3.IsEnabled = True
-            If Me.IsVisible = True Then
+    Private Sub bwgo_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) _
+        Handles _bwgo.RunWorkerCompleted
+        If _isall = 0 Then
+            GridBatchControl.Visibility = Visibility.Hidden
+            ButtonGo.Visibility = Visibility.Visible
+            ButtonOneAll.Visibility = Visibility.Visible
+            ButtonLogout.Visibility = Visibility.Visible
+            ButtonLogout.IsEnabled = True
+            ComboBoxLessons.IsEnabled = True
+            ComboBoxTime.IsEnabled = True
+            If IsVisible = True Then
                 MsgBox("Done")
             End If
         End If
     End Sub
 
-    Private Sub Buttonstop_Click(sender As Object, e As RoutedEventArgs) Handles buttonstop.Click
-        If bwall.IsBusy = True Then
-            bwall.CancelAsync()
+    Private Sub Buttonstop_Click(sender As Object, e As RoutedEventArgs) Handles ButtonStop.Click
+        If _bwall.IsBusy = True Then
+            _bwall.CancelAsync()
         End If
-        bw.CancelAsync()
-        gridbatchctrl.Visibility = Windows.Visibility.Hidden
-        Button1.Visibility = Windows.Visibility.Visible
-        buttonone.Visibility = Windows.Visibility.Visible
-        ButtonL2.Visibility = Windows.Visibility.Visible
-        ButtonL2.IsEnabled = True
-        combobox2.IsEnabled = True
-        combobox3.IsEnabled = True
+        _bwgo.CancelAsync()
+        GridBatchControl.Visibility = Visibility.Hidden
+        ButtonGo.Visibility = Visibility.Visible
+        ButtonOneAll.Visibility = Visibility.Visible
+        ButtonLogout.Visibility = Visibility.Visible
+        ButtonLogout.IsEnabled = True
+        ComboBoxLessons.IsEnabled = True
+        ComboBoxTime.IsEnabled = True
     End Sub
 
-    Private Sub buttonone_Click(sender As Object, e As RoutedEventArgs) Handles buttonone.Click
-        If isall = 1 Then
-            buttonone.Content = "One"
-            isall = 0
+    Private Sub buttonone_Click(sender As Object, e As RoutedEventArgs) Handles ButtonOneAll.Click
+        If _isall = 1 Then
+            ButtonOneAll.Content = "One"
+            _isall = 0
         Else
-            buttonone.Content = "All"
-            isall = 1
+            ButtonOneAll.Content = "All"
+            _isall = 1
         End If
     End Sub
 
-    Private Sub MainWindow_Closing(sender As Object, e As System.ComponentModel.CancelEventArgs)
-        If isloggedin = True Then
-            logout()
+    Private Sub MainWindow_Closing(sender As Object, e As CancelEventArgs)
+        If _isloggedin = True Then
+            Logout()
         End If
     End Sub
 
     Protected Overrides Sub OnMouseRightButtonDown(e As MouseButtonEventArgs)
-        MyBase.OnMouseRightButtonUp(e)
-        notify.Text = "YourET - " + combobox1.Text.Replace(" ", "")
-        notify.Icon = My.Resources.yourettray
-        notify.Visible = True
-        Me.Hide()
+        OnMouseRightButtonUp(e)
+        _notify.Text = "YourET - " + ComboBoxUsers.Text.Replace(" ", "")
+        _notify.Icon = My.Resources.yourettray
+        _notify.Visible = True
+        Hide()
     End Sub
 
-    Private Sub Notify_MouseClick(sender As Object, e As System.Windows.Forms.MouseEventArgs) Handles notify.Click
-        Me.Show()
-        notify.Visible = False
+    Private Sub Notify_MouseClick(sender As Object, e As MouseEventArgs) Handles _notify.Click
+        Show()
+        _notify.Visible = False
     End Sub
 
-    Private Sub bwload_DoWork(ByVal sender As Object, ByVal e As System.ComponentModel.DoWorkEventArgs) Handles bwload.DoWork
+    Private Sub bwload_DoWork(ByVal sender As Object, ByVal e As DoWorkEventArgs) Handles _bwload.DoWork
         Try
-            Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
-            Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
+            Dim passwordsDataSet As PasswordsDataSet = CType(FindResource("PasswordsDataSet"), PasswordsDataSet)
+            Dim passwordsDataSetTableTableAdapter As TableTableAdapter = New TableTableAdapter()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
     End Sub
 
-    Private Sub bwload_RunWorkerCompleted(ByVal sender As Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs) Handles bwload.RunWorkerCompleted
+    Private Sub bwload_RunWorkerCompleted(ByVal sender As Object, ByVal e As RunWorkerCompletedEventArgs) _
+        Handles _bwload.RunWorkerCompleted
         Try
-            Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
-            Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
-            PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
-            Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
-            TableViewSource.View.MoveCurrentToFirst()
+            Dim passwordsDataSet As PasswordsDataSet = CType(FindResource("PasswordsDataSet"), PasswordsDataSet)
+            Dim passwordsDataSetTableTableAdapter As TableTableAdapter = New TableTableAdapter()
+            passwordsDataSetTableTableAdapter.Fill(passwordsDataSet.Table)
+            Dim tableViewSource As CollectionViewSource = CType(FindResource("TableViewSource"), CollectionViewSource)
+            tableViewSource.View.MoveCurrentToFirst()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
-        combobox1.IsEnabled = True
-        ButtonL4.IsEnabled = True
-        labelloading.Visibility = Windows.Visibility.Hidden
+        ComboBoxUsers.IsEnabled = True
+        ButtonLogin.IsEnabled = True
+        LabelLoading.Visibility = Visibility.Hidden
     End Sub
 End Class
 

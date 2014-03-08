@@ -1,31 +1,31 @@
-﻿Option Explicit On
+﻿Option Explicit Off
 Imports System.Windows.Interop
-Imports System.IO
 Imports System.Data.SqlClient
-Imports System.Data
+Imports youret.PasswordsDataSetTableAdapters
 
 Public Class PasswordMgr
-    Protected Overrides Sub OnSourceInitialized(ByVal e As System.EventArgs)
+    Protected Overrides Sub OnSourceInitialized(ByVal e As EventArgs)
         MyBase.OnSourceInitialized(e)
         ExtendGlass()
     End Sub
     Protected Overrides Sub OnMouseLeftButtonDown(e As MouseButtonEventArgs)
         MyBase.OnMouseLeftButtonDown(e)
-        Me.DragMove()
+        DragMove()
     End Sub
     Private Declare Sub DwmIsCompositionEnabled Lib "dwmapi.dll" (ByRef b As Boolean)
     Private Declare Sub DwmExtendFrameIntoClientArea Lib "dwmapi.dll" (ByVal hWnd As IntPtr, ByRef pMarInset As Margins)
     Private Structure Margins
         Public Sub New(ByVal t As Thickness)
-            Left = CInt(t.Left)
-            Right = CInt(t.Right)
-            Top = CInt(t.Top)
-            Bottom = CInt(t.Bottom)
+            _left = CInt(t.Left)
+            _right = CInt(t.Right)
+            _top = CInt(t.Top)
+            _bottom = CInt(t.Bottom)
         End Sub
-        Public Left As Integer
-        Public Right As Integer
-        Public Top As Integer
-        Public Bottom As Integer
+
+        Private _left As Integer
+        Private _right As Integer
+        Private _top As Integer
+        Private _bottom As Integer
     End Structure
     Private Sub ExtendGlass()
         Try
@@ -34,7 +34,7 @@ Public Class PasswordMgr
             If b Then
                 Dim hWnd As IntPtr = New WindowInteropHelper(Me).Handle
                 If hWnd <> IntPtr.Zero Then
-                    Me.Background = Brushes.Transparent
+                    Background = Brushes.Transparent
                     HwndSource.FromHwnd(hWnd).CompositionTarget.BackgroundColor = Colors.Transparent
                     Dim m As New Margins(New Thickness(-1))
                     DwmExtendFrameIntoClientArea(hWnd, m)
@@ -43,36 +43,35 @@ Public Class PasswordMgr
         Catch
         End Try
     End Sub
-
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs) Handles MyBase.Loaded
         Try
-            Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
-            Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
-            PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
-            Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
-            TableViewSource.View.MoveCurrentToFirst()
+            Dim passwordsDataSet As PasswordsDataSet = CType(FindResource("PasswordsDataSet"), PasswordsDataSet)
+            Dim passwordsDataSetTableTableAdapter As TableTableAdapter = New TableTableAdapter()
+            passwordsDataSetTableTableAdapter.Fill(passwordsDataSet.Table)
+            Dim tableViewSource As CollectionViewSource = CType(FindResource("TableViewSource"), CollectionViewSource)
+            tableViewSource.View.MoveCurrentToFirst()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
     End Sub
 
-    Private Sub addbt_Click(sender As Object, e As RoutedEventArgs) Handles addbt.Click
+    Private Sub ButtonAdd_Click(sender As Object, e As RoutedEventArgs) Handles ButtonAdd.Click
         Dim add As New AddUser
         add.Owner = Me
         add.ShowDialog()
         Try
-            Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
-            Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
-            PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
-            Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
-            TableViewSource.View.MoveCurrentToFirst()
+            Dim passwordsDataSet As PasswordsDataSet = CType(FindResource("PasswordsDataSet"), PasswordsDataSet)
+            Dim passwordsDataSetTableTableAdapter As TableTableAdapter = New TableTableAdapter()
+            passwordsDataSetTableTableAdapter.Fill(passwordsDataSet.Table)
+            Dim tableViewSource As CollectionViewSource = CType(FindResource("TableViewSource"), CollectionViewSource)
+            tableViewSource.View.MoveCurrentToFirst()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
     End Sub
 
     Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
-        Me.Close()
+        Close()
     End Sub
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
@@ -82,18 +81,18 @@ Public Class PasswordMgr
         Dim cmd As New SqlCommand(sql, conn)
         Try
             conn.Open()
-            Dim res As String = cmd.ExecuteNonQuery()
+            cmd.ExecuteNonQuery()
             conn.Close()
             conn.Dispose()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try
         Try
-            Dim PasswordsDataSet As youret.PasswordsDataSet = CType(Me.FindResource("PasswordsDataSet"), youret.PasswordsDataSet)
-            Dim PasswordsDataSetTableTableAdapter As youret.PasswordsDataSetTableAdapters.TableTableAdapter = New youret.PasswordsDataSetTableAdapters.TableTableAdapter()
-            PasswordsDataSetTableTableAdapter.Fill(PasswordsDataSet.Table)
-            Dim TableViewSource As System.Windows.Data.CollectionViewSource = CType(Me.FindResource("TableViewSource"), System.Windows.Data.CollectionViewSource)
-            TableViewSource.View.MoveCurrentToFirst()
+            Dim passwordsDataSet As PasswordsDataSet = CType(FindResource("PasswordsDataSet"), PasswordsDataSet)
+            Dim passwordsDataSetTableTableAdapter As TableTableAdapter = New TableTableAdapter()
+            passwordsDataSetTableTableAdapter.Fill(passwordsDataSet.Table)
+            Dim tableViewSource As CollectionViewSource = CType(FindResource("TableViewSource"), CollectionViewSource)
+            tableViewSource.View.MoveCurrentToFirst()
         Catch ex As Exception
             MsgBox(ex.Message)
         End Try

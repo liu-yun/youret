@@ -1,19 +1,19 @@
 ﻿Public Class SplashWindow
-    Dim count As Single = 0
+    Dim _count As Single = 0
     Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
-        count = count + 1
-        If count > 2 Then
+        _count = _count + 1
+        If _count > 2 Then
             Dim mainwindow1 As New MainWindow
             mainwindow1.Show()
-            Me.Close()
+            Close()
         End If
     End Sub
     Protected Overrides Sub OnMouseLeftButtonDown(e As MouseButtonEventArgs)
         MyBase.OnMouseLeftButtonDown(e)
-        Me.DragMove()
+        DragMove()
     End Sub
     Private Sub Button_Click_2(sender As Object, e As RoutedEventArgs)
-        Me.Close()
+        Close()
     End Sub
 End Class
 
