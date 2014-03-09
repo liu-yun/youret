@@ -215,6 +215,8 @@ Class MainWindow
         ButtonGo.Visibility = Visibility.Visible
         ButtonLogout.Visibility = Visibility.Visible
         ButtonLogout.IsEnabled = True
+        ComboBoxLessons.IsEnabled = True
+        ComboBoxTime.IsEnabled = True
         GridBatchControl.Visibility = Visibility.Hidden
     End Sub
 
