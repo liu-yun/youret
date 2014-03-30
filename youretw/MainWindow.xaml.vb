@@ -371,9 +371,9 @@ Class MainWindow
         _aspsession = weblogin1.ResponseHeaders.Get("Set-Cookie").Substring(18, 24)
         weblogin1.Dispose()
         Dim urlauth As String
-        _cookielogin = "LLang=EN; TargetServerKey=CN1-LLabs; APVersion=5705; WPort=49156; LastSessionID=" + _aspsession +
+        _cookielogin = "LLang=EN; TargetServerKey=CN1-LLabs; APVersion=5708; WPort=49156; LastSessionID=" + _aspsession +
                       "; RememberMyAccount=N; ASP.NET_SessionId=" + _aspsession +
-                      "; ContentProvider=; IsCookieSupported=Y; IsAllianceAccount=N; TmpRememberMyAccount=N; ConnType=Local; APArgs=ContentProvider=&Version=5705&MediaLocation=&ServerKey=&LaunchMyETArg=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; APFixedArgs=Version=5705&MediaLocation=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; Mac=9E-05-40-A5-BE-DE"
+                      "; ContentProvider=; IsCookieSupported=Y; IsAllianceAccount=N; TmpRememberMyAccount=N; ConnType=Local; APArgs=ContentProvider=&Version=5708&MediaLocation=&ServerKey=&LaunchMyETArg=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; APFixedArgs=Version=5708&MediaLocation=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; Mac=9E-05-40-A5-BE-DE"
         Dim weblogin2 As New WebClient()
         With weblogin2
             .Headers.Add("Accept",
@@ -416,12 +416,12 @@ Class MainWindow
             accountidtmp = weblogin3.DownloadString("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx")
             _accountid = accountidtmp.Substring(195, 6)
             weblogin3.Dispose()
-            _cookiesend = "LLang=EN; TargetServerKey=CN1-LLabs; APVersion=5705; WPort=49155; LastSessionID=" + _aspsession +
+            _cookiesend = "LLang=EN; TargetServerKey=CN1-LLabs; APVersion=5708; WPort=49155; LastSessionID=" + _aspsession +
                          "; MyETAccountID=" + username +
                          "; RememberMyAccount=N; LastLessonID=CN-PEP-XXQ-00033; ASP.NET_SessionId=" + _aspsession +
                          "; ContentProvider=; IsCookieSupported=Y; IsAllianceAccount=N; TmpRememberMyAccount=Y; TmpPassword=" +
                          _password + "; EcpACID=" + _ecpacid +
-                         "; CourseIDInSessionInfo=PEP-XXQ-005; ConnType=Local; APArgs=ContentProvider=&Version=5705&MediaLocation=&ServerKey=&LaunchMyETArg=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; APFixedArgs=Version=5705&MediaLocation=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; Mac=9E-05-40-A5-BE-DE"
+                         "; CourseIDInSessionInfo=PEP-XXQ-005; ConnType=Local; APArgs=ContentProvider=&Version=5708&MediaLocation=&ServerKey=&LaunchMyETArg=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; APFixedArgs=Version=5708&MediaLocation=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; Mac=9E-05-40-A5-BE-DE"
         End If
         If errorstate = False Then
             _isloggedin = True

@@ -9,7 +9,7 @@ Public Class WebBrowser
     Public Lesson As String
     Protected Overrides Sub OnSourceInitialized(ByVal e As EventArgs)
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "TargetServerKey", "CN1-LLabs; path=/")
-        InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "APVersion", "5705; path=/")
+        InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "APVersion", "5708; path=/")
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "LastSessionID", Aspsession + "; path=/")
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "ASP.NET_SessionId", Aspsession + "; path=/")
         InternetSetCookie("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx", "ContentProvider", "; path=/")
