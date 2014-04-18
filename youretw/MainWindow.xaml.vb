@@ -335,8 +335,7 @@ Class MainWindow
     End Function
 
     Public Function Login(ByRef username As String)
-        Dim accountidtmp As String
-        Dim ecpacidtmp() As String
+        Dim webtemp As String
         Dim conn As SqlConnection =
                 New SqlConnection(
                     "Data Source=(LocalDB)\v11.0;AttachDbFilename=|DataDirectory|\Passwords.mdf;Integrated Security=True")
@@ -388,43 +387,25 @@ Class MainWindow
             .Headers.Add("Cookie", _cookielogin)
         End With
         urlauth = "http://cn.myet.com/ElizaWeb/Authentication/LoginPost.aspx?ESID=" + _aspsession + "&UserName=" + username
-        weblogin2.DownloadString(urlauth)
+        webtemp = weblogin2.DownloadString(urlauth)
+
         Dim errorstate As Boolean = False
         Try
-            ecpacidtmp = weblogin2.ResponseHeaders.Get("Set-Cookie").Split("; path=/")
-            _ecpacid = ecpacidtmp(2).Substring(16, 24)
+            _accountid = webtemp.Substring(694, 6)
+            _ecpacid = weblogin2.ResponseHeaders.Get("Set-Cookie").Split("; path=/")(2).Substring(16, 24)
         Catch ex As Exception
             MsgBox("Error", MsgBoxStyle.Critical, "YourET")
             errorstate = True
         End Try
         weblogin2.Dispose()
         If errorstate = False Then
-            Dim weblogin3 As New WebClient()
-            With weblogin3
-                .Headers.Add("Accept",
-                             "application/x-ms-application, image/jpeg, application/xaml+xml, image/gif, image/pjpeg, application/x-ms-xbap, application/x-shockwave-flash, */*")
-                .Headers.Add("Accept-Language", "zh-CN")
-                .Headers.Add("Accept-Encoding", "gzip, deflate")
-                .Headers.Add("User-Agent",
-                             "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.2; WOW64; Trident/7.0; .NET4.0E; .NET4.0C; InfoPath.3; Media Center PC 6.0; .NET CLR 3.5.30729; .NET CLR 2.0.50727; .NET CLR 3.0.30729; WWTClient2)")
-                .Headers.Add("Referer", "http://cn.myet.com/ElizaWeb/Home.aspx")
-                .Headers.Add("Cookie", _cookielogin)
-                .Headers.Add("EcpACID", _ecpacid)
-                .Headers.Add("OnlinePurchaseEntrance", "ELIZAWEB")
-                .Headers.Add("TmpPassword", _password)
-            End With
-            accountidtmp = weblogin3.DownloadString("http://cn.myet.com/ElizaWeb/PersonalizedPage.aspx")
-            _accountid = accountidtmp.Substring(195, 6)
-            weblogin3.Dispose()
-            _cookiesend = "LLang=EN; TargetServerKey=CN1-LLabs; APVersion=5708; WPort=49155; LastSessionID=" + _aspsession +
-                         "; MyETAccountID=" + username +
-                         "; RememberMyAccount=N; LastLessonID=CN-PEP-XXQ-00033; ASP.NET_SessionId=" + _aspsession +
-                         "; ContentProvider=; IsCookieSupported=Y; IsAllianceAccount=N; TmpRememberMyAccount=Y; TmpPassword=" +
-                         _password + "; EcpACID=" + _ecpacid +
-                         "; CourseIDInSessionInfo=PEP-XXQ-005; ConnType=Local; APArgs=ContentProvider=&Version=5708&MediaLocation=&ServerKey=&LaunchMyETArg=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; APFixedArgs=Version=5708&MediaLocation=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; Mac=9E-05-40-A5-BE-DE"
-        End If
-        If errorstate = False Then
             _isloggedin = True
+            _cookiesend = "LLang=EN; TargetServerKey=CN1-LLabs; APVersion=5708; WPort=49155; LastSessionID=" + _aspsession +
+                     "; MyETAccountID=" + username +
+                     "; RememberMyAccount=N; LastLessonID=CN-PEP-XXQ-00033; ASP.NET_SessionId=" + _aspsession +
+                     "; ContentProvider=; IsCookieSupported=Y; IsAllianceAccount=N; TmpRememberMyAccount=Y; TmpPassword=" +
+                     _password + "; EcpACID=" + _ecpacid +
+                     "; CourseIDInSessionInfo=PEP-XXQ-005; ConnType=Local; APArgs=ContentProvider=&Version=5708&MediaLocation=&ServerKey=&LaunchMyETArg=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; APFixedArgs=Version=5708&MediaLocation=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; Mac=9E-05-40-A5-BE-DE"
         Else
             _isloggedin = False
         End If
