@@ -388,27 +388,21 @@ Class MainWindow
         End With
         urlauth = "http://cn.myet.com/ElizaWeb/Authentication/LoginPost.aspx?ESID=" + _aspsession + "&UserName=" + username
         webtemp = weblogin2.DownloadString(urlauth)
-
-        Dim errorstate As Boolean = False
+        _isloggedin = True
         Try
             _accountid = webtemp.Substring(694, 6)
             _ecpacid = weblogin2.ResponseHeaders.Get("Set-Cookie").Split("; path=/")(2).Substring(16, 24)
         Catch ex As Exception
-            MsgBox("Error", MsgBoxStyle.Critical, "YourET")
-            errorstate = True
+            MsgBox("Login failed", MsgBoxStyle.Critical, "YourET")
+            _isloggedin = False
         End Try
         weblogin2.Dispose()
-        If errorstate = False Then
-            _isloggedin = True
-            _cookiesend = "LLang=EN; TargetServerKey=CN1-LLabs; APVersion=5708; WPort=49155; LastSessionID=" + _aspsession +
+        _cookiesend = "LLang=EN; TargetServerKey=CN1-LLabs; APVersion=5708; WPort=49155; LastSessionID=" + _aspsession +
                      "; MyETAccountID=" + username +
                      "; RememberMyAccount=N; LastLessonID=CN-PEP-XXQ-00033; ASP.NET_SessionId=" + _aspsession +
                      "; ContentProvider=; IsCookieSupported=Y; IsAllianceAccount=N; TmpRememberMyAccount=Y; TmpPassword=" +
                      _password + "; EcpACID=" + _ecpacid +
                      "; CourseIDInSessionInfo=PEP-XXQ-005; ConnType=Local; APArgs=ContentProvider=&Version=5708&MediaLocation=&ServerKey=&LaunchMyETArg=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; APFixedArgs=Version=5708&MediaLocation=&MAC=9E-05-40-A5-BE-DE&SocketPort=1024&PPort=300&WPort=49157; Mac=9E-05-40-A5-BE-DE"
-        Else
-            _isloggedin = False
-        End If
         Return 0
     End Function
 
