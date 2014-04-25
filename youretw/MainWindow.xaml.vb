@@ -197,7 +197,7 @@ Class MainWindow
         ProgressBarUsers.Value = _progressusers
         LabelUsersProgress.Content = Int(_progressusers).ToString + "%"
         ProgressBarLessons.Value = 0
-        If _bwgo.IsBusy = False Then
+        If _bwgo.IsBusy = False And _isloggedin = True Then
             TextBoxLesson.Text = _lessonstart
             _bwgo.WorkerSupportsCancellation = True
             _bwgo.WorkerReportsProgress = True
