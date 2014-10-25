@@ -28,7 +28,7 @@ Public Class WebBrowser
             _url = Browser.Source.AbsoluteUri
             Omnibox.Text = _url
             If _url.Contains("LessonMainPageContainer.aspx") Then
-                lesson = _url.Substring(109, 16)
+                Lesson = _url.Substring(104, 16)
                 Browser.Navigate("about:blank")
                 Browser.Dispose()
                 Close()
