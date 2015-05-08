@@ -1,6 +1,8 @@
 ﻿Imports System.Runtime.InteropServices
+Imports System.Text.RegularExpressions
+
 Public Class WebBrowser
-    <DllImport("wininet.dll", CharSet:=CharSet.Auto, SetLastError:=True)> _
+    <DllImport("wininet.dll", CharSet:=CharSet.Auto, SetLastError:=True)>
     Public Shared Function InternetSetCookie(ByVal lpszUrlName As String, ByVal lbszCookieName As String, ByVal lpszCookieData As String) As Boolean
     End Function
     Public Aspsession As String
@@ -28,7 +30,9 @@ Public Class WebBrowser
             _url = Browser.Source.AbsoluteUri
             Omnibox.Text = _url
             If _url.Contains("LessonMainPageContainer.aspx") Then
-                Lesson = _url.Substring(104, 16)
+                Dim regex As New Regex(pattern:="CN-PEP-\w{3}-\d{5}")
+                Dim matches As MatchCollection = regex.Matches(_url)
+                Lesson = regex.Match(_url).ToString
                 Browser.Navigate("about:blank")
                 Browser.Dispose()
                 Close()
