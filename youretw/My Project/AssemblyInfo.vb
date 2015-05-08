@@ -42,7 +42,7 @@ Imports System.Windows
 
 
 '如果此项目向 COM 公开，则下列 GUID 用于类型库的 ID
-<Assembly: Guid("60f1c10c-61d4-48b8-9225-84ba07a12d4f")> 
+<Assembly: Guid("60f1c10c-61d4-48b8-9225-84ba07a12d4f")>
 
 ' 程序集的版本信息由下面四个值组成:
 '
@@ -55,5 +55,5 @@ Imports System.Windows
 ' 方法是按如下所示使用“*”:
 ' <Assembly: AssemblyVersion("1.0.*")> 
 
-<Assembly: AssemblyVersion("3.2.0.0")> 
-<Assembly: AssemblyFileVersion("3.2.0.0")> 
+<Assembly: AssemblyVersion("3.2.1.0")>
+<Assembly: AssemblyFileVersion("3.2.1.0")>
